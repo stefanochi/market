@@ -1,0 +1,34 @@
+body{
+    background-color: #FFFFFF;
+    color: #404040;
+    font-size: 11pt;
+    font-family: Georgia, Garamond, serif;
+    min-width: 1024;
+}
+
+h1,h2,h3,h4{
+    color: #A4A400;
+    background-color: #F0F0F0;
+    font-family: "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+    text-decoration: underline;
+    letter-spacing: 0.25em;
+}
+
+h1{
+    text-align: center;
+    font-size: 22pt;
+    font-weight:bold
+}
+
+h2,h3,h4{
+    text-align: left;
+    font-size: 18pt 
+}
+
+a{
+    color: #A4A400
+}
+
+img{
+    ali
+}
