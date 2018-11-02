@@ -1,0 +1,133 @@
+/*Stefano Chiavazza
+File di stile per la pagina TMNT-Rancit TSomatoes*/
+
+body{
+    background-image: url("http://courses.cs.washington.edu/courses/cse190m/11sp/homework/2/background.png");
+    font-size: 8pt;
+    font-family: Verdana, Tahoma, sans-serif;
+}
+
+h1{
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Tahoma, Verdana, sans-serif;
+    text-shadow: 3px 3px #999999;
+    text-align: center;
+}
+
+#main{
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+#banner{
+    background-image: url("http://www.cs.washington.edu/education/courses/cse190m/11sp/homework/2/bannerbg.png");
+    background-repeat: repeat-x;
+}
+
+#reviews-div{
+    width: 550px;
+}
+
+#info{
+    width: 250px;
+    float: right;
+    background-color: #A2B964;
+    font-size: 8pt;
+    font-family: Arial, sans-serif;
+}
+
+#info dl{
+    margin: 10pt;
+}
+
+#info dt{
+    font-weight: bold;
+    margin-top: 10pt;
+}
+
+#info ul{
+    list-style: none;
+    padding-left: 0px;
+}
+
+#score{
+    background-image: url("http://www.cs.washington.edu/education/courses/cse190m/11sp/homework/2/rbg.png");
+    background-repeat: repeat-x;
+    font-weight: bold;
+    color: red;
+    font-size: 48pt;
+}
+
+#page{
+    clear:right;
+    text-align: center;
+    background-color: #A2B964;
+    padding: 5px;
+    display: block;
+}
+
+#first-column{
+    margin-right: 2%;
+    margin-left: 2%
+}
+
+#footer{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    border:0;
+    width:88px;
+    height:70px;
+    vertical-align: bottom;
+    opacity: 0.5;
+}
+
+.banner{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rotten-img{
+    vertical-align: bottom;
+}
+
+.review-column{
+    width: 47%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.review-text{
+    font-weight: bold;;
+    font-size: 8pt;
+    background-color: #E8DC9B;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: grey;
+    border-width: 2px;
+    padding: 8px;
+    vertical-align: bottom;
+    overflow: auto;
+}
+
+.review-column img, .review-author img{
+    margin-right: 5px;
+    float: left;
+}
+
+.review-author{
+    font-style: italic; 
+    margin-bottom: 25pt;
+    overflow: auto;
+}
+
+
+
+
