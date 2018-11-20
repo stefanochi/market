@@ -1,0 +1,40 @@
+#frame {
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    background-color: white;
+    box-shadow: 10px 0px 5px grey;
+}
+
+table{
+    width : 90%;
+    margin : auto;
+    border-collapse: collapse;
+}
+
+td, th{
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even){
+    background-color: #dad9d4;
+}
+
+body {
+    background-color: #dad9d4;
+    font-family: Verdana, sans-serif;
+}
+
+form{
+    text-align: center;  
+    padding: 5px;
+    width: 50%;
+    margin: auto;
+}
+
+#banner, #w3c{
+    background-image: url(banner-background.png);
+    color: white;
+    text-align: left;
+}
