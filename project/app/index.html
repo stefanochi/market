@@ -1,0 +1,44 @@
+<!DOCKTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+        <script src="https://unpkg.com/page@1.11.3/page.js"></script>
+        
+        <script src="app/js/main.js"></script>
+        <script src="app/js/loginSignup.js"></script>
+    </head>
+    <body>
+        <div class="content">
+            <!--this div will contain the content of the page-->
+        </div>
+        <div class="templates">
+            <script id="home_template" type="text/x-handlebars-template">
+                <div class="entry">
+                    <p>This is the homepage for {{username}}</p>
+                    <p>Email: {{email}}</p>
+                </div>
+            </script>
+            
+            <script id="login_template" type="text/x-handlebars-template">
+                <form id="login_form">
+                    <input type="text" id="username_login" placeholder="Username">
+                    <input type="password" id="password_login" placeholder="Password">
+                    <button id="submit_login">Login</button>
+                </form>
+                <button id="signup_link">Sign Up</button>
+                </div>
+            </script>
+            
+            <script id="signup_template" type="text/x-handlebars-template">
+                <form id="signup_form">
+                    <input type="text" id="username_signup" placeholder="Username">
+                    <input type="email" id="email_signup" placeholder="Email">
+                    <input type="password" id="password_signup" placeholder="Password">
+                    <button id="submit_login">Sing Up</button>
+                </form>
+            </script>
+
+        </div>
+    </body>
+</html>
