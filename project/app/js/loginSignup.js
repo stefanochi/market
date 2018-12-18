@@ -6,6 +6,15 @@
 //
 //
 
+function loginStart(){
+    $.get('ajax/profile.php', function(res){
+        if(res.state == 'Success'){
+            page('/profile');
+        }else{
+            showLogin();
+        }
+    });
+}
 
 function showLogin(){
 
@@ -21,7 +30,7 @@ function showLogin(){
 
 function setLoginListeners(){
     //add the listener for the form
-    $('#login_form').submit(function(e){
+    $('#submit_login').click(function(e){
         e.preventDefault();
         //send login to server
         loginPost();
@@ -46,12 +55,9 @@ function loginPost(){
         if(data.state == "Success"){
             //if the login is successful go to user page
             console.log("login successful");
-            user.logged = true;
-            user.data = data;
-            page('/user');
+            page('/profile/' + data.data.ID);
         }else{
-            //if it failed print on console
-            console.log("login failed");
+            showError("Wrong combination of name and password");
         }
     });
 }
@@ -63,6 +69,15 @@ function loginPost(){
 //
 //
 
+function signupStart(){
+    $.get('ajax/profile.php', function(res){
+        if(res.state == 'Success'){
+            page('/profile');
+        }else{
+            showSignup();
+        }
+    });
+}
 
 function showSignup(){
     //compile the template
@@ -78,7 +93,7 @@ function showSignup(){
 
 function setSignupListeners(){
     //add the listener
-    $('#signup_form').submit(function(e){
+    $('#submit_signup').click(function(e){
         e.preventDefault();
         //send login to server
         signupPost();
@@ -99,13 +114,17 @@ function signupPost(){
         if(data.state == "Success"){
             //if the login is successful go to user page
             console.log("signup successful");
-            user.logged = true;
-            page('/user');
+            page('/profile/' + data.data.ID);
         }else{
-            //if it failed print on console
-            console.log("signup failed: " + data.message);
+            showError(data.message);
         }
     });
+}
+
+function showError(message){
+    console.log("showing error");
+    $('.form_div .alert_div').remove();
+    $('.form_div').prepend($('<div class="alert_div"></div>').html(message));
 }
 
 
