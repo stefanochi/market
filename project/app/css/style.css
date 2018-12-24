@@ -49,6 +49,7 @@ body{
 
 .main{
 	max-width: 600px;
+	width: 100%;
 	background-color: #192530;
 	margin-top: 5px;
 	border-color: #56626d;
@@ -56,10 +57,10 @@ body{
 	border-width: 2px;
 }
 
+
 .form_div{
 	display: flex;
 	flex-direction: column;
-	width: 100%;
 	padding: 50px;
 	height: 400px;
 	justify-content: space-between;
@@ -79,6 +80,10 @@ body{
 img{
 	max-width: 100%;
 	height: auto;
+}
+
+.hidden{
+	display: none;
 }
 
 @media screen and (min-width: 768px){

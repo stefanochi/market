@@ -1,4 +1,11 @@
-var Router = {
+var Router = (function(){
+
+$(window).on('hashchange', function(){
+    Router.hashChanged();
+});
+    
+
+return {
     routes : [],
     add: function(path, handler){
         this.routes.push({pathRe: path, handler: handler});
@@ -21,9 +28,25 @@ var Router = {
     },
     navigate: function(path){
         window.location.hash = path;
+    },
+    init: function(){
+        Router.add(/home/, function(){
+           console.log("Home page");
+        });
+        Router.add(/login/, function(){
+           Login.initLogin();
+        });
+        Router.add(/signup/, function(){
+           Login.initSignup();
+        });   
+        Router.add(/profile\/(.*)/, function(){
+           Profile.init(arguments[0]);
+        });
+        Router.add(/products\/([0-9]*)/, function(){
+           Products.init(arguments[0]);
+        });
+     
+        Router.hashChanged();
     }
 }
-
-$(window).on('hashchange', function(){
-    Router.hashChanged();
-});
+}());

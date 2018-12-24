@@ -1,31 +1,8 @@
 $('docuemnt').ready(function(){
-   setRouter();
+   Router.init();
 });
 
-var user = null;
-
-var setRouter = function(){
-   //set up the router for the single page app
-   Router.add(/home/, function(){
-      console.log("Home page");
-   });
-   Router.add(/login/, function(){
-      console.log("showing login");
-      loginStart();
-   });
-   Router.add(/signup/, function(){
-      console.log("showing signup");
-      signupStart();
-   });   
-   Router.add(/profile\/(.*)/, function(){
-      loadProfile(arguments[0]);
-   });
-   Router.add(/products\/([0-9]*)/, function(){
-      loadProducts(arguments[0]);
-   });
-
-   Router.hashChanged();
-}
+var loggedUser = null;
 
 var showError = function(){
    var source = "<p>Error {{Error}}</p>";
