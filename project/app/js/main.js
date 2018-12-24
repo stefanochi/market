@@ -2,21 +2,29 @@ $('docuemnt').ready(function(){
    setRouter();
 });
 
+var user = null;
+
 var setRouter = function(){
    //set up the router for the single page app
+   Router.add(/home/, function(){
+      console.log("Home page");
+   });
+   Router.add(/login/, function(){
+      console.log("showing login");
+      loginStart();
+   });
+   Router.add(/signup/, function(){
+      console.log("showing signup");
+      signupStart();
+   });   
+   Router.add(/profile\/(.*)/, function(){
+      loadProfile(arguments[0]);
+   });
+   Router.add(/products\/([0-9]*)/, function(){
+      loadProducts(arguments[0]);
+   });
 
-   //set the base url
-   page.base("/project");
-
-   //define all the possible routes
-
-   page('/login', loginStart);
-   page('/signup', signupStart);
-   page('/profile/:id', loadProfile);
-   page('*', loadProfile);
-
-   //start the router
-   page();
+   Router.hashChanged();
 }
 
 var showError = function(){

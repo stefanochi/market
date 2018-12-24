@@ -7,9 +7,10 @@
 //
 
 function loginStart(){
-    $.get('ajax/profile.php', function(res){
-        if(res.state == 'Success'){
-            page('/profile');
+    $.get('ajax/profile', function(res){
+        if(res.state == 0){
+            user = res.data;
+            Router.navigate('#profile/' + user.ID);
         }else{
             showLogin();
         }
@@ -38,7 +39,7 @@ function setLoginListeners(){
 
     //listener for the signup
     $('#signup_link').click(function(){
-        page('/signup');
+       Router.navigate('#signup');
     });
 }
 
@@ -50,12 +51,13 @@ function loginPost(){
     var payload = {username: loginUsername, password: loginPassword};
 
     //send the login information to the sever
-    $.post("ajax/login.php", payload, function(data){
+    $.post("ajax/login", payload, function(res){
 
-        if(data.state == "Success"){
+        if(res.state == 0){
             //if the login is successful go to user page
             console.log("login successful");
-            page('/profile/' + data.data.ID);
+            user = res.data;
+            Router.navigate('#profile/' + res.data.ID);
         }else{
             showError("Wrong combination of name and password");
         }
@@ -70,9 +72,9 @@ function loginPost(){
 //
 
 function signupStart(){
-    $.get('ajax/profile.php', function(res){
-        if(res.state == 'Success'){
-            page('/profile');
+    $.get('ajax/profile', function(res){
+        if(res.state == 0){
+            Router.navigate('#profile/');
         }else{
             showSignup();
         }
@@ -109,12 +111,13 @@ function signupPost(){
     var payload = {username: signupUsername, email: signupEmail, password: signupPassword};
 
     //send the login information to the sever
-    $.post("ajax/signup.php", payload, function(data){
+    $.post("ajax/signup", payload, function(res){
 
-        if(data.state == "Success"){
+        if(res.state == 0){
             //if the login is successful go to user page
             console.log("signup successful");
-            page('/profile/' + data.data.ID);
+            user = res.data;
+            Router.navigate('#profile/' + res.data.ID);
         }else{
             showError(data.message);
         }
