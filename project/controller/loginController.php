@@ -12,75 +12,50 @@ class loginController{
     public function login(){
 
         if(isset($_SESSION['name'])){
-            $data = ['state' => 'Success'];
-            
-            header('Content-Type: application/json');
-            echo json_encode($data);
+            return new Response(
+                0, 
+                "Already logged in", 
+                $this->userModel->getUserByUsername($_SESSION['name']));
         }
-
         $username = $_POST['username'];
         $password = hash('sha512', $_POST['password']);
 
         try{
             $user = $this->userModel->usernamePasswordExists($username, $password);
-            if(isset($user)){
-                session_start();
-                $_SESSION['name'] = $username;
-    
-                $data = ['state' => 'Success',
-                         'data' => [
-                            'name' => $user->getUsername(),
-                            'email' => $user->getEmail(),
-                            'date' => $user->getDate(),
-                            'ID' => $user->getID()
-                            ]
-                         ];
-            }else{
-                $data = ['state' => 'Fail',
-                        'message' => 'something went wrong'];
-            }
+            session_start();
+            $_SESSION['name'] = $username;
+            $_SESSION['ID'] = $user->getID();
+        
+            return new Response(0, "User info", $user);
         }catch(Exception $e){
-            $data = [
-                'state' => 'Fail',
-                'message' => $e->getMessage()
-            ];
+            return new Response(1, $e->getMessage());
         }
-
-        header('Content-Type: application/json');
-        echo json_encode($data);
     }
 
+
     public function signup(){
+
         $username = $_POST['username'];
         $email    = $_POST['email'];
         $password = hash('sha512', $_POST['password']);
 
         try{
             //check if username and email are available
-            if($this->userModel->availableUsername($username) && 
-                $this->userModel->availableEmail($email)){
-                    
-                $user = $this->userModel->addUser($username, $password, $email);
-                session_start();
-                $_SESSION['name'] = $username;
-                $data = ['state' => 'Success',
-                        'data' => [
-                            'name' => $user->getUsername(),
-                            'email' => $user->getEmail(),
-                            'date' => $user->getDate(),
-                            'ID' => $user->getID()
-                        ]];
-            }else{
-                $data = ['state' => 'Fail',
-                         'message' => 'Username or email already in use'];
+            if(!$this->userModel->availableUsername($username) || 
+                !$this->userModel->availableEmail($email)){
+                    return new Response(1, "Username or Email already in use");
+
             }
+                    
+            $user = $this->userModel->addUser($username, $password, $email);
+            session_start();
+            $_SESSION['name'] = $username;
+            $_SESSION['ID'] = $user->getID();
+                
+            return new Response(0, "User info", $user);
         }catch(Exception $e){
-            $data = ['state' => 'Fail',
-                     'message' => $e->getMessage()];
+            return new Response(1, $e->getMessage());
         }
-        
-        header('Content-Type: application/json');
-        echo json_encode($data);
     }
 
     public function logout(){
@@ -88,7 +63,7 @@ class loginController{
         session_unset();
         session_destroy();
 
-        echo 'Deleted';
+        return new Response(0, "Logou seccessful");
     }
 }
 ?>

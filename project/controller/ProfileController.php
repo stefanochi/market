@@ -8,28 +8,25 @@ class ProfileController{
     }
 
     public function sendProfile(){
+        session_start();
         if(isset($_GET['id'])){
             try{
                 $user = $this->userModel->getUserByID($_GET['id']);
+                return new Response(0, 'User info', $user);
             }catch(Exception $e){
-                $response = ['state' => 'Fail',
-                             'message' => $e->getMessage()];
+                return new Response(1, $e->getMessage());
             }
-            if(isset($user)){
-                $response = ['state' => 'Success',
-                            'data' => [
-                                'name' => $user->getUsername(),
-                                'email' => $user->getEmail(),
-                                'ID' => $user->getID()]];
-            }
-        }else{
-            $response = ['state' => 'Fail',
-                         'message' => 'You must specify an user id'];
         }
 
-
-        header('Content-Type: application/json');
-        echo json_encode($response);
+        if(isset($_SESSION['ID'])){
+            try{
+                $user = $this->userModel->getUserByID($_SESSION['ID']);
+                return new Response(0, 'User info', $user);
+            }catch(Exception $e){
+                return new Response(1, $e->getMessage());
+            }
+        }
+        return new Response(1, "user id not specified");
     }
 }
 ?>

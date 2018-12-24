@@ -3,6 +3,7 @@
 include_once('controller/loginController.php');
 include_once('controller/ProfileController.php');
 include_once('controller/ProductController.php');
+include_once('controller/Response.php');
 
 class Controller{
 
@@ -14,25 +15,45 @@ class Controller{
         $request = strtok($fullRequest, '?');
 
         switch($request){
-            case '/project/ajax/login.php':
+            case '/project/ajax/login':
                 $loginController = new loginController();
-                $loginController->login();
+                $res = $loginController->login();
+                $res->sendResponse();
                 break;
-            case '/project/ajax/signup.php':
+            case '/project/ajax/signup':
                 $loginController = new loginController();
-                $loginController->signup();
+                $res = $loginController->signup();
+                $res->sendResponse();
                 break;
-            case '/project/ajax/profile.php':
+            case '/project/ajax/profile':
                 $profileController = new ProfileController();
-                $profileController->sendProfile();
+                $res = $profileController->sendProfile();
+                $res->sendResponse();
                 break;
-            case '/project/ajax/logout.php':
+            case '/project/ajax/logout':
                 $loginController = new loginController();
-                $loginController->logout();
+                $res = $loginController->logout();
+                $res->sendResponse();
                 break;
-            case '/project/ajax/products/':
+            case '/project/ajax/products':
                 $produtController = new ProductController();
-                $produtController->getAllProducts();
+                $res = $produtController->getAllProducts();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/products/add':
+                $produtController = new ProductController();
+                $res = $produtController->addProduct();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/products/delete':
+                $produtController = new ProductController();
+                $res = $produtController->deleteProduct();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/products/update':
+                $produtController = new ProductController();
+                $res = $produtController->updateProduct();
+                $res->sendResponse();
                 break;
             default:
                 include 'app/index.html';

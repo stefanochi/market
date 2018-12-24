@@ -62,7 +62,10 @@ class UserModel{
             $user['ID'],
             $user['username'], 
             $user['email'],
-            $user['reg_date']);
+            $user['reg_date'],
+            $user['rating'],
+            $user['image'],
+            $user['info']);
     }
 
     public function getUserByUsername($username){
@@ -72,7 +75,7 @@ class UserModel{
         }
         
         $stmt = $this->db->prepare(
-            'SELECT ID, username, email, reg_date
+            'SELECT *
             FROM Users
             WHERE username = ?');
 
@@ -92,7 +95,10 @@ class UserModel{
             $user['ID'],
             $user['username'], 
             $user['email'],
-            $user['reg_date']);
+            $user['reg_date'],
+            $user['rating'],
+            $user['image'],
+            $user['info']);
 
     }
 
@@ -102,7 +108,7 @@ class UserModel{
         }
         
         $stmt = $this->db->prepare(
-            'SELECT ID, username, email, reg_date
+            'SELECT *
             FROM Users
             WHERE email = ?');
 
@@ -122,12 +128,15 @@ class UserModel{
             $user['ID'],
             $user['username'], 
             $user['email'],
-            $user['reg_date']);
+            $user['reg_date'],
+            $user['rating'],
+            $user['image'],
+            $user['info']);
     }
 
     public function getUserByID($id){
         $stmt = $this->db->prepare(
-            'SELECT ID, username, email, reg_date
+            'SELECT *
             FROM Users
             WHERE ID = ?');
 
@@ -135,11 +144,11 @@ class UserModel{
 
         //if there are 2 users with the same name, throw an exception
         if($stmt->rowCount() > 1){
-            throw new Exception("Two users with the same email");
+            throw new Exception("Two users with the same id");
         }
         //if the is no user with that name, throw an exception
         if($stmt->rowCount() < 1){
-            throw new Exception("No user with that email");
+            throw new Exception("No user with that id");
         }
 
         $user = $stmt->fetch(); 
@@ -147,7 +156,10 @@ class UserModel{
             $user['ID'],
             $user['username'], 
             $user['email'],
-            $user['reg_date']);
+            $user['reg_date'],
+            $user['rating'],
+            $user['image'],
+            $user['info']);
     }
 
     public function availableUsername($username){
