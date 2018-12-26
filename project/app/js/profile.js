@@ -12,17 +12,24 @@ var Profile = (function(){
 
     //request the profile information
     function loadProfile(){
-        var payload  = profileID ? {id: profileID} : {};
-        $.get('ajax/profile', payload, function(res){
-            if(res.state == 0){
-                //if the request was successful, show the profile
-                user = res.data;
-                showProfile();
-            }else{
-                //otherwise return to login page
-                Router.navigate('#login');
-            }
-        });
+        //if we request the profile of the logged user we already have the information
+        if(profileID == loggedUser.info.ID){
+            user = loggedUser.info;
+            showProfile();
+        }else{
+            var payload  = profileID ? {id: profileID} : {};
+            $.get('ajax/profile', payload, function(res){
+                if(res.state == 0){
+                    //if the request was successful, show the profile
+                    user = res.data;
+                    showProfile();
+                }else{
+                    //otherwise return to login page
+                    Router.navigate('#login');
+                }
+            });
+        }
+        
     }
 
     //show the profile page
@@ -33,22 +40,12 @@ var Profile = (function(){
         var context = {username: user.username, email: user.email};
         var html = template(context);
         $('.content').html(html);
-    
-        if(loggedUser && loggedUser.ID == profileID){
-            $('#logout_button').removeClass("hidden");
-        }
+
         setProfileListeners();
     }
 
     //set the listeners for the profile
     function setProfileListeners(){
-        $('#logout_button').click(function(){
-            $.get('ajax/logout', function(res){
-                document.cookie =  'PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                Router.navigate('#login');
-            });
-            LoggedUser = null;
-        });
     
         $('#products_button').click(function(){
             Router.navigate('#products/' + profileID);

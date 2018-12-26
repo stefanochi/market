@@ -11,6 +11,7 @@
         <script src="app/js/profile.js"></script>
         <script src="app/js/products.js"></script>
         <script src="app/js/router.js"></script>
+        <script src="app/js/navbar.js"></script>
         <script src="app/js/main.js"></script>
 
         <link rel="stylesheet" href="app/css/style.css">
@@ -26,7 +27,7 @@
                     <button>Search</button>
                 </li>
                 <li>
-                    <button class="navbar_button">Logout</button>
+                    <button id="logout_button" class="navbar_button">Logout</button>
                 </li>
             </ul>
         </div>
@@ -38,7 +39,6 @@
                 <div class="profile_div" class="">
                     <p>This is the homepage for {{username}}</p>
                     <p>Email: {{email}}</p>
-                    <button id="logout_button" class="hidden">Logout</button>
                     <button id="products_button">Products</button>
                 </div>
             </script>

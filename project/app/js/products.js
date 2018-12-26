@@ -34,7 +34,7 @@ var Products = (function(){
             $('#productList_div').append(html);
         }
     
-        if(loggedUser && loggedUser.ID == userID){
+        if(loggedUser.info && loggedUser.info.ID == userID){
             $('#addProduct_button').removeClass('hidden');
             $('.button_div').removeClass('hidden');
         }

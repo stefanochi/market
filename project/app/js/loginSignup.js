@@ -2,9 +2,11 @@ var Login = (function(){
     
     function initLogin(){
         $('.content').html("");
-        if(loggedUser){
-            Router.navigate('#profile/' + loggedUser.ID);
+        if(loggedUser.info){
+            //if the user is alredy logged in go to his profile page
+            Router.navigate('#profile/' + loggedUser.info.ID);
         }else{
+            //otherwise show the login page
             showLogin();
         }
     }
@@ -48,7 +50,7 @@ var Login = (function(){
             if(res.state == 0){
                 //if the login is successful go to user page
                 console.log("login successful");
-                loggedUser = res.data;
+                loggedUser.info = res.data;
                 Router.navigate('#profile/' + res.data.ID);
             }else{
                 showError("Wrong combination of name and password");
@@ -65,8 +67,8 @@ var Login = (function(){
     
     function initSignup(){
         $('.content').html("");
-        if(loggedUser){
-            Router.navigate('#profile/' + loggedUser.ID);
+        if(loggedUser.info){
+            Router.navigate('#profile/' + loggedUser.info.ID);
         }else{
             showSignup();
         }
@@ -106,7 +108,7 @@ var Login = (function(){
             if(res.state == 0){
                 //if the login is successful go to user page
                 console.log("signup successful");
-                loggedUser = res.data;
+                loggedUser.info = res.data;
                 Router.navigate('#profile/' + res.data.ID);
             }else{
                 showError(data.message);
