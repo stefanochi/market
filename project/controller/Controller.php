@@ -55,6 +55,11 @@ class Controller{
                 $res = $produtController->updateProduct();
                 $res->sendResponse();
                 break;
+            case '/project/ajax/products/search':
+                $produtController = new ProductController();
+                $res = $produtController->searchProducts();
+                $res->sendResponse();
+                break;
             default:
                 include 'app/index.html';
                 break;

@@ -63,7 +63,7 @@ class loginController{
         session_unset();
         session_destroy();
 
-        return new Response(0, "Logou seccessful");
+        return new Response(0, "Logouy successful");
     }
 }
 ?>

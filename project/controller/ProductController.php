@@ -109,6 +109,19 @@ class ProductController{
             return new Response(1, $e->getMessage());
         }
     }
+
+    public function searchProducts(){
+        if(!isset($_GET['search'])){
+            return new Response(1, "You must specify a search word");
+        }
+        try{
+            $products = $this->productModel->searchProducts($_GET['search']);
+            return new Response(0, "searched products", $products);
+        }catch(Exception $e){
+            return new Response(1, $e->getMessage());
+        }
+
+    }
 }
 
 ?>

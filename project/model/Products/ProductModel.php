@@ -11,6 +11,32 @@ class ProductModel{
         $this->db = $database;
     }
 
+    public function searchProducts($search){
+        $stmt =  $this->db->prepare(
+            "SELECT * 
+             FROM Products
+             WHERE title LIKE ?"
+        );
+        $res = $stmt->execute(["%" . $search . "%"]);
+        if(!$res){
+            throw new Exception("searchProducts(): something went wrong");
+        }
+        $products = $stmt->fetchAll();
+        $result = array();
+        foreach($products as $product){
+            array_push($result, new Product(
+                $product['ID'],
+                $product['title'],
+                $product['description'],
+                $product['price'],  
+                $product['ownerID'],
+                $product['image']
+            ));
+        }
+
+        return $result;
+    }
+
     public function updateProduct($id, $title, $price, $ownerID, $description, $image){
         //check if the information is valid
         if($title == ""){
