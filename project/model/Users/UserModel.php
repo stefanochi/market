@@ -13,7 +13,7 @@ class UserModel{
     }
 
     public function addUser($username, $password, $email){
-        if($password == ""){
+        if($password == "" && !isset($password)){
             throw new Exception("password can't be empty");
         }
         $stmt = $this->db->prepare(

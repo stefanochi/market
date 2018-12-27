@@ -5,7 +5,8 @@ var Profile = (function(){
     
     function init(requestedProfile){
         //empty the content of the page to be replaced
-        $('.content').html("");
+        $('.main').html("");
+        Cart.init();
         profileID = requestedProfile;
         loadProfile();
     }
@@ -39,7 +40,7 @@ var Profile = (function(){
         var template = Handlebars.compile(source);
         var context = {username: user.username, email: user.email};
         var html = template(context);
-        $('.content').html(html);
+        $('.main').html(html);
 
         setProfileListeners();
     }

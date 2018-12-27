@@ -3,6 +3,7 @@
 include_once('controller/loginController.php');
 include_once('controller/ProfileController.php');
 include_once('controller/ProductController.php');
+include_once('controller/CartController.php');
 include_once('controller/Response.php');
 
 class Controller{
@@ -58,6 +59,21 @@ class Controller{
             case '/project/ajax/products/search':
                 $produtController = new ProductController();
                 $res = $produtController->searchProducts();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/cart/add':
+                $cartController = new CartController();
+                $res = $cartController->addItemToCart();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/cart/remove':
+                $cartController = new CartController();
+                $res = $cartController->removeItemFromCart();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/cart/':
+                $cartController = new CartController();
+                $res = $cartController->getCart();
                 $res->sendResponse();
                 break;
             default:

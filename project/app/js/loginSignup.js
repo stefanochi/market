@@ -1,7 +1,7 @@
 var Login = (function(){
     
     function initLogin(){
-        $('.content').html("");
+        $('.main').html("");
         if(loggedUser.info){
             //if the user is alredy logged in go to his profile page
             Router.navigate('#profile/' + loggedUser.info.ID);
@@ -18,7 +18,7 @@ var Login = (function(){
         var template = Handlebars.compile(source);
         var context = {Login: "test login"};
         var html = template(context);
-        $('.content').html(html);
+        $('.main').html(html);
     
         setLoginListeners();
     }
@@ -66,7 +66,7 @@ var Login = (function(){
     //
     
     function initSignup(){
-        $('.content').html("");
+        $('.main').html("");
         if(loggedUser.info){
             Router.navigate('#profile/' + loggedUser.info.ID);
         }else{
@@ -79,7 +79,7 @@ var Login = (function(){
         var template = Handlebars.compile(source);
         var context = {Login: "test signup"};
         var html = template(context);
-        $('.content').html(html);
+        $('.main').html(html);
     
         setSignupListeners();
     }

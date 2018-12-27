@@ -5,7 +5,7 @@ var Products = (function(){
 
     function loadProductsByUserID(requestedID){
         //empty the content of the page to be replaced
-        $('.content').html("");
+        $('.main').html("");
         userID = requestedID;
         
         var payload = userID ? {id: userID} : {};
@@ -20,7 +20,7 @@ var Products = (function(){
     }
     
     function loadProductsBySearch(search){
-        $('.content').html("");
+        $('.main').html("");
         $.get("ajax/products/search", {search: search}, function(res){
             if(res.state == 0){
                 products = res.data;
@@ -32,7 +32,7 @@ var Products = (function(){
     }
     
     function showProducts(){
-        $('.content').html("<div id='productList_div' class='main'></div>");
+        $('.main').html("<div id='productList_div'></div>");
         $('#productList_div').append("<button id='addProduct_button' class='hidden'>Add Product</button>");
         var source = $('#product_template').html();
         var template = Handlebars.compile(source);
@@ -69,7 +69,7 @@ var Products = (function(){
     function showAddProductForm(){
         var source = $('#addProduct_template').html();
         var template = Handlebars.compile(source);   
-        $('.content').html(template());
+        $('.main').html(template());
     
         $('#product_add').click(addProduct);
     }
