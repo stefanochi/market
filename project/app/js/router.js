@@ -43,7 +43,10 @@ return {
            Profile.init(arguments[0]);
         });
         Router.add(/products\/([0-9]*)/, function(){
-           Products.init(arguments[0]);
+           Products.loadProductsByUserID(arguments[0]);
+        });
+        Router.add(/products\/search\/([a-zA-Z0-9_]*)/, function(){
+            Products.loadProductsBySearch(arguments[0]);
         });
      
         Router.hashChanged();

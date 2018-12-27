@@ -4,6 +4,13 @@ var Navbar = (function(){
         $('#logout_button').click(function(){
             logout();
         });
+
+        $('#search_submit').click(function(){
+            var search = $('#search_input').val();
+            if(search){
+                Router.navigate("#products/search/" + search);
+            }
+        });
     }
 
     function logout(){

@@ -2,17 +2,26 @@ var Products = (function(){
 
     var userID;
     var products;
-    
-    function init(requestedID){
+
+    function loadProductsByUserID(requestedID){
         //empty the content of the page to be replaced
         $('.content').html("");
         userID = requestedID;
-        loadProducts();
-    }
-
-    function loadProducts(){
+        
         var payload = userID ? {id: userID} : {};
         $.get('/project/ajax/products', payload, function(res){
+            if(res.state == 0){
+                products = res.data;
+                showProducts();
+            }else{
+                console.log(res.message);
+            }
+        });
+    }
+    
+    function loadProductsBySearch(search){
+        $('.content').html("");
+        $.get("ajax/products/search", {search: search}, function(res){
             if(res.state == 0){
                 products = res.data;
                 showProducts();
@@ -74,7 +83,7 @@ var Products = (function(){
         }
         $.post("/project/ajax/products/add", payload ,function(res){
             if(res.state == 0){
-                loadProducts(loggedUser.ID);
+                loadProducts();
             }else{
                 console.log(res.message);
             }
@@ -82,6 +91,7 @@ var Products = (function(){
     }
 
     return{
-        init: init
+        loadProductsByUserID: loadProductsByUserID,
+        loadProductsBySearch: loadProductsBySearch
     }
 }());
