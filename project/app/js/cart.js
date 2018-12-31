@@ -84,12 +84,6 @@ var Cart = (function(){
             var data = e.originalEvent.dataTransfer.getData('product');
             addProductToCart(data);
         });
-        $('#cart_div').on('dragleave', function(e){
-            e.preventDefault();
-            var data = e.originalEvent.dataTransfer.getData('cart');
-            removeProductsFromCart(data);
-        });
-
         //show all the products in the cart
         if(cartProducts){
 
@@ -109,11 +103,6 @@ var Cart = (function(){
         $('.cartProduct_remove').click(function(e){
             var productID = $(e.target).parent().attr('id').split('_')[1];
             removeProductsFromCart(productID);
-        });
-        
-        $('.cartProduct_div').on('dragstart', function(e){
-            e.originalEvent.dataTransfer.setData('cart', e.target.id);
-            var data = e.originalEvent.dataTransfer.getData('cart');
         });
     }
 
