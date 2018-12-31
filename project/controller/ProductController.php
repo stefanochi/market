@@ -31,7 +31,8 @@ class ProductController{
                 $_POST['price'],
                 $_POST['ownerID'],
                 $_POST['description'],
-                $_POST['image']);
+                $_POST['image'],
+                $_POST['sold']);
                     
             //if no exception accours return success
             return new Response(0, "Successfully updatetd");

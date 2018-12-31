@@ -76,6 +76,11 @@ class Controller{
                 $res = $cartController->getCart();
                 $res->sendResponse();
                 break;
+            case '/project/ajax/cart/buy':
+                $cartController = new CartController();
+                $res = $cartController->buyProductsInCart();
+                $res->sendResponse();
+                break;
             default:
                 include 'app/index.html';
                 break;
