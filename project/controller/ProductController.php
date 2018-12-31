@@ -92,8 +92,13 @@ class ProductController{
             return new Response(1, "You don't have the permissions to delete the product");
         }
         //delete the product
-        $this->productModel->deleteProduct($product->getID());
-        return new Response(0, "Successfully deleted product");
+        
+        try{
+            $this->productModel->deleteProduct($product->getID());
+            return new Response(0, "Successfully deleted product");
+        }catch(Exception $e){
+            return new Response(1, $e->getMessage());
+        }
     }
 
     //get all products from the user with id $_GET[id]

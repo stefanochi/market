@@ -42,10 +42,10 @@ return {
         Router.add(/profile\/(.*)/, function(){
            Profile.init(arguments[0]);
         });
-        Router.add(/products\/([0-9]*)/, function(){
+        Router.add(/products\/user\/([0-9]+)/, function(){
            Products.loadProductsByUserID(arguments[0]);
         });
-        Router.add(/products\/search\/([a-zA-Z0-9_]*)/, function(){
+        Router.add(/products\/search\/([a-z0-9_]*)/i, function(){
             Products.loadProductsBySearch(arguments[0]);
         });
      

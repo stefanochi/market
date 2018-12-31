@@ -49,7 +49,7 @@ var Profile = (function(){
     function setProfileListeners(){
     
         $('#products_button').click(function(){
-            Router.navigate('#products/' + profileID);
+            Router.navigate('#products/user/' + profileID);
         });
     }
 

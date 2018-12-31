@@ -3,27 +3,45 @@ var Products = (function(){
     var userID;
     var products;
 
+    //get all the products of the specified user
     function loadProductsByUserID(requestedID){
         //empty the content of the page to be replaced
         $('.main').html("");
         userID = requestedID;
-        
-        var payload = userID ? {id: userID} : {};
-        $.get('/project/ajax/products', payload, function(res){
-            if(res.state == 0){
-                products = res.data;
-                showProducts();
+        if(!userID){
+            if(loggedUser.info){
+                //if no user is specified and the user is logged in
+                //go to the products page of the user
+                Router.navigate('#products/' + loggedUser.info.ID);
             }else{
-                console.log(res.message);
+                //not logged in and no user specified
+                Router.navigate('#login');
             }
-        });
+            
+        }else{
+            //if the user requested the products of another user, show that instead
+            var payload = {id: userID};
+            $.get('/project/ajax/products', payload, function(res){
+                if(res.state == 0){
+                    products = res.data;
+                    showProducts();
+                }else{
+                    console.log(res.message);
+                }
+            });
+        }
+       
     }
     
+    //get all the products with the title matching the search string
     function loadProductsBySearch(search){
+        userID = null;
         $('.main').html("");
+        //request to the server
         $.get("ajax/products/search", {search: search}, function(res){
             if(res.state == 0){
                 products = res.data;
+                //show the list of products
                 showProducts();
             }else{
                 console.log(res.message);
@@ -31,8 +49,11 @@ var Products = (function(){
         });
     }
     
+    //show the list of products, indipendently of the method used to get the data
     function showProducts(){
+        //create a new div that contains all the products
         $('.main').html("<div id='productList_div'></div>");
+        //add a button to add a new product
         $('#productList_div').append("<button id='addProduct_button' class='hidden'>Add Product</button>");
         var source = $('#product_template').html();
         var template = Handlebars.compile(source);
@@ -41,11 +62,22 @@ var Products = (function(){
             var html = template(context);
     
             $('#productList_div').append(html);
+            if(loggedUser.info && loggedUser.info.ID == products[i].ownerID){
+                var button = "<button class='product_delete'>Delete</button><button class='produc_update'>Update</button>";
+            }else{
+                var button = "<button class='product_addToCart'>Add To Cart</button>";
+            }
+            $("#" + products[i].ID + "> .button_div").append(button);
+
+
+            $("#" + products[i].ID).attr('draggable', 'True');
+            $("#" + products[i].ID).on('dragstart', function(e){
+                e.originalEvent.dataTransfer.setData("product", e.target.id);
+            });
         }
     
         if(loggedUser.info && loggedUser.info.ID == userID){
             $('#addProduct_button').removeClass('hidden');
-            $('.button_div').removeClass('hidden');
         }
     
         setListenersProducts();
@@ -53,16 +85,22 @@ var Products = (function(){
     
     function setListenersProducts(){
         $('.product_delete').click(buttonDelete);
-    
         //$('.product_update').click(updateProduct);
+
+        $('.product_addToCart').click(addProductToCart);
         
         $('#addProduct_button').click(showAddProductForm);
     }
+
+    function addProductToCart(e){
+        var productID = $(e.target).parent().parent().attr('id');
+        Cart.addProductToCart(productID);
+    }
     
     function buttonDelete(e){
-        var productID = $(e.target).parent().attr('id');
+        var productID = $(e.target).parent().parent().attr('id');
         $.post('/project/ajax/products/delete', {productID: productID}, function(res){
-            loadProducts();
+            loadProductsByUserID(loggedUser.info.ID);
         });   
     }
     
@@ -83,7 +121,7 @@ var Products = (function(){
         }
         $.post("/project/ajax/products/add", payload ,function(res){
             if(res.state == 0){
-                loadProducts();
+                loadProductsByUserID(loggedUser.info.ID);
             }else{
                 console.log(res.message);
             }

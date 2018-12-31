@@ -67,16 +67,14 @@
             </script>
             
             <script id="product_template" type="text/x-handlebars-template">
-                <div class="product_div">
+                <div class="product_div" id={{ID}}>
                     <div class="title_div">
                         <h1 class="product_title">{{title}}</h1>
                         <h2 class="product_price">{{price}}</h2>
                     </div>
                     <img src={{image}}>
                     <p class="product_description">{{description}}</p>
-                    <div id={{ID}} class="button_div hidden">
-                        <button class="product_delete">Delete</button>
-                        <button class="produc_update">Update</button>
+                    <div class="button_div">
                     </div>
                 </div>
             </script>
@@ -92,9 +90,10 @@
             </script>
 
             <script id="cartProduct_template" type="text/x-handlebars-template">
-                <div class="cartProduct_div">
+                <div id=cartProduct_{{ID}} class="cartProduct_div">
                     <h2 class="cartProduct_title">{{title}}</h2>
                     <h2 class="cartProduct_price">{{price}}</h2>
+                    <button class="cartProduct_remove">Remove</button> 
                 </div>
             </script>
 

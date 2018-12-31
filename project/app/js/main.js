@@ -39,5 +39,6 @@ $('docuemnt').ready(function(){
    loggedUser.init(function(){
       Router.init();
       Navbar.init();
+      Cart.init();
    });
 });

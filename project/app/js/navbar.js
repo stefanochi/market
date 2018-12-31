@@ -15,6 +15,7 @@ var Navbar = (function(){
 
     function logout(){
         loggedUser.logout();
+        Cart.deleteCartProducts();
         Router.navigate('#login');
     }
 

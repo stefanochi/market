@@ -17,6 +17,12 @@ class CartModel{
             throw new Exception("userID not specified");
         }
 
+        $productModel = new ProductModel();
+        $productInfo = $productModel->getProductByID($productID);
+        if($productInfo->getOwnerID() == $userID){
+            throw new Exception("can't add own product to cart");
+        }
+
         //insert the values in the database 
         $stmt = $this->db->prepare(
             'INSERT INTO Carts (productID, userID)
@@ -54,7 +60,7 @@ class CartModel{
             throw new Exception("removeItemFromCart(): error deleting product" . $this->db->errorInfo()[0]);
         }
 
-        return getCart($userID);
+        return $this->getCart($userID);
     }
 
     //get all the products in the cart of the user
