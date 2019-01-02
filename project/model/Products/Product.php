@@ -9,14 +9,16 @@ class Product implements JsonSerializable{
     private $offers;
     private $description;
     private $image;
+    private $sold;
 
-    public function __construct($id, $title, $description, $price, $owner, $image=""){
+    public function __construct($id, $title, $description, $price, $owner, $image="", $sold=false){
         $this->id = $id;
         $this->title = $title;
         $this->price = $price;
         $this->description = $description;
         $this->owner = $owner;
         $this->image = $image;
+        $this->sold = $sold;
     }
 
     public function jsonSerialize(){
@@ -26,7 +28,8 @@ class Product implements JsonSerializable{
             'description' => $this->description,
             'price' => $this->price,
             'ownerID' => $this->owner,
-            'image' => $this->image
+            'image' => $this->image,
+            'sold' => $this->sold
         ];
     }
 
@@ -76,6 +79,9 @@ class Product implements JsonSerializable{
         $this->image = $image;
     }
 
+    public function getSold(){
+        return $this->sold;
+    }
 
 }
 

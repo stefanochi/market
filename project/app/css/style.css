@@ -41,9 +41,6 @@ body{
 	background-color: green;
 }
 
-.content{
-}
-
 .main{
 	width: 100%;
 	background-color: #192530;
@@ -59,6 +56,8 @@ body{
 	border-color: red;
 }
 .left, .right{
+	position: sticky;
+	top: 0;
 	width: 25%;
 }
 
@@ -81,6 +80,10 @@ body{
 	border-color: #56626d;
 	border-style: solid;
 	border-width: 2px;
+}
+
+#cart_div{
+	min-height: 500px;
 }
 img{
 	max-width: 100%;

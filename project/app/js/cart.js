@@ -72,6 +72,7 @@ var Cart = (function(){
         $('.right').html("");
         //create a div for the cart
         $('.right').html("<div id='cart_div'></div>");
+        $('#cart_div').html("<button id='cart_buy'>Buy Products</button>");
         //add drag and drop functionality
         $('#cart_div').on('dragover', function(e){
             e.preventDefault();
@@ -95,7 +96,7 @@ var Cart = (function(){
                 var context = cartProducts[i];
                 var html = template(context);
 
-                $('#cart_div').append(html);
+                $('#cart_div').prepend(html);
             }
         }
 
@@ -104,6 +105,10 @@ var Cart = (function(){
             var productID = $(e.target).parent().attr('id').split('_')[1];
             removeProductsFromCart(productID);
         });
+
+        $('#cart_buy').click(function(){
+            buyCartProducts();
+        });
     }
 
     function deleteCartProducts(){
@@ -111,9 +116,27 @@ var Cart = (function(){
         showCartProducts();
     }
 
+    function buyCartProducts(){
+        if(loggedUser.info)
+            $.post('ajax/cart/buy', {userID: loggedUser.info.ID}, function(res){
+                if(res.state == 0){
+                    Cart.init();
+                }else{
+                    console.log("error buying products");
+                    //TOTO 
+                    //display error message
+                }
+            });
+    }
+
+    function hideCart(){
+        $('#cart_div').addClass('hidden');
+    }
+
     return{
         init: init,
         deleteCartProducts: deleteCartProducts,
-        addProductToCart: addProductToCart
+        addProductToCart: addProductToCart,
+        hideCart: hideCart
     }
 }());

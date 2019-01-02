@@ -81,5 +81,26 @@ class CartController{
             return new Response(1, $e->getMessage());
         }
     }
+
+    public function buyProductsInCart(){
+        session_start();
+        //check if the user is logged in
+        if(!isset($_SESSION['ID'])){
+            return new Response(1, "You must be logged in");
+        }
+        //check if the user if modifying his own cart
+        if($_POST['userID'] != $_SESSION['ID']){
+            return new Response(1, "You don't have the permissions");
+        }
+
+        //set the products to bought and delete from other carts
+        try{
+            $products = $this->cartModel->buyProductsInCart($_POST['userID']);
+
+            return new Response(0, "Products bought successfully", $products);
+        }catch(Exception $e){
+            return new Response(1, $e->getMessage());
+        }
+    }
 }
 ?>

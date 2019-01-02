@@ -15,7 +15,7 @@ class ProductModel{
         $stmt =  $this->db->prepare(
             "SELECT * 
              FROM Products
-             WHERE title LIKE ?"
+             WHERE title LIKE ? AND sold=FALSE"
         );
         $res = $stmt->execute(["%" . $search . "%"]);
         if(!$res){
@@ -30,14 +30,15 @@ class ProductModel{
                 $product['description'],
                 $product['price'],  
                 $product['ownerID'],
-                $product['image']
+                $product['image'],
+                $product['sold']
             ));
         }
 
         return $result;
     }
 
-    public function updateProduct($id, $title, $price, $ownerID, $description, $image){
+    public function updateProduct($id, $title, $price, $ownerID, $description, $image, $sold){
         //check if the information is valid
         if($title == ""){
             throw new Exception("updateProduct(): title can't be ampty");
@@ -130,7 +131,8 @@ class ProductModel{
             $product['description'],
             $product['price'],
             $product['ownerID'],
-            $product['image']
+            $product['image'],
+            $product['sold']
         );
     }
 
@@ -152,7 +154,8 @@ class ProductModel{
                 $product['description'],
                 $product['price'],  
                 $product['ownerID'],
-                $product['image']
+                $product['image'],
+                $product['sold']
             ));
         }
 
