@@ -23,7 +23,7 @@ class CartModel{
 
         //a user can't add his own products to the cart 
         //and he can't add a product that has alredy been bought
-        if($productInfo->getOwnerID() == $userID){
+        if($productInfo->getOwnerID() == $userID || $productInfo->getSold() == true){
             throw new Exception("can't add own product to cart or the product is already sold");
         }
 

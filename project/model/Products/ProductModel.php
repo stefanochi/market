@@ -30,7 +30,8 @@ class ProductModel{
                 $product['description'],
                 $product['price'],  
                 $product['ownerID'],
-                $product['image']
+                $product['image'],
+                $product['sold']
             ));
         }
 
@@ -130,7 +131,8 @@ class ProductModel{
             $product['description'],
             $product['price'],
             $product['ownerID'],
-            $product['image']
+            $product['image'],
+            $product['sold']
         );
     }
 
@@ -152,7 +154,8 @@ class ProductModel{
                 $product['description'],
                 $product['price'],  
                 $product['ownerID'],
-                $product['image']
+                $product['image'],
+                $product['sold']
             ));
         }
 
