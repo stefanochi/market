@@ -59,7 +59,7 @@ class CartModel{
              WHERE productID = ? AND userID = ?'
         );
         $res = $stmt->execute([$productID, $userID]);
-        //throws an exception if insertion fails
+        //throws an exception if deletionn fails
         if(!$res){
             throw new Exception("removeItemFromCart(): error deleting product" . $this->db->errorInfo()[0]);
         }
@@ -80,9 +80,6 @@ class CartModel{
              WHERE userID = ?'
         );
         $res = $stmt->execute([$userID]);
-        if(!$res){
-            throw new Exception("getCart(): " . $this->db->errorInfo()[0]);
-        }
 
         //return an array of products
         $products = $stmt->fetchAll();

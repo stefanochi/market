@@ -4,6 +4,7 @@ include_once('controller/loginController.php');
 include_once('controller/ProfileController.php');
 include_once('controller/ProductController.php');
 include_once('controller/CartController.php');
+include_once('controller/UserReviewController.php');
 include_once('controller/Response.php');
 
 class Controller{
@@ -79,6 +80,21 @@ class Controller{
             case '/project/ajax/cart/buy':
                 $cartController = new CartController();
                 $res = $cartController->buyProductsInCart();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/reviews/add':
+                $userReviewController = new UserReviewController();
+                $res = $userReviewController->addReview();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/reviews/remove':
+                $userReviewController = new UserReviewController();
+                $res = $userReviewController->removeReview();
+                $res->sendResponse();
+                break;
+            case '/project/ajax/reviews':
+                $userReviewController = new UserReviewController();
+                $res = $userReviewController->getUserReviews();
                 $res->sendResponse();
                 break;
             default:
