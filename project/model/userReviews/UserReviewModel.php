@@ -63,8 +63,8 @@ class UserReviewModel{
             throw new Exception("data not valid");
         }
         $stmt = $this->db->prepare(
-            'SELECT *
-             FROM userReviews
+            'SELECT writerID, username, reviewedID, userReviews.rating, pub_date, text
+             FROM userReviews JOIN Users ON writerID = ID
              WHERE reviewedID = ?'
         );
         $res = $stmt->execute([$reviewedID]);
@@ -79,6 +79,7 @@ class UserReviewModel{
         foreach($reviews as $review){
             array_push($result, new UserReview(
                 $review['writerID'],
+                $review['username'],
                 $review['reviewedID'],
                 $review['rating'],
                 $review['pub_date'],

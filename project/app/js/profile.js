@@ -8,22 +8,27 @@ var Profile = (function(){
         $('.main').html("");
         Cart.init();
         profileID = requestedProfile;
-        loadProfile();
+        loadProfile(function(){
+            showProfile();
+            Products.loadProductsByUserID(profileID);
+            Review.init(profileID);
+        });
+        
     }
 
     //request the profile information
-    function loadProfile(){
+    function loadProfile(callback){
         //if we request the profile of the logged user we already have the information
         if(profileID == loggedUser.info.ID){
             user = loggedUser.info;
-            showProfile();
+            callback();
         }else{
             var payload  = profileID ? {id: profileID} : {};
             $.get('ajax/profile', payload, function(res){
                 if(res.state == 0){
                     //if the request was successful, show the profile
                     user = res.data;
-                    showProfile();
+                    callback();
                 }else{
                     //otherwise return to login page
                     Router.navigate('#login');
@@ -36,7 +41,7 @@ var Profile = (function(){
     //show the profile page
     function showProfile(){
         console.log('showing profile');
-        var source = $('#home_template').html();
+        var source = $('#profile_template').html();
         var template = Handlebars.compile(source);
         var context = {username: user.username, email: user.email};
         var html = template(context);

@@ -5,8 +5,6 @@ var Products = (function(){
 
     //get all the products of the specified user
     function loadProductsByUserID(requestedID){
-        //empty the content of the page to be replaced
-        $('.main').html("");
         userID = requestedID;
         if(!userID){
             if(loggedUser.info){
@@ -36,7 +34,7 @@ var Products = (function(){
     //get all the products with the title matching the search string
     function loadProductsBySearch(search){
         userID = null;
-        $('.main').html("");
+        $('.main').html("<div id='productList_div'></div>");
         //request to the server
         $.get("ajax/products/search", {search: search}, function(res){
             if(res.state == 0){
@@ -51,8 +49,8 @@ var Products = (function(){
     
     //show the list of products, indipendently of the method used to get the data
     function showProducts(){
-        //create a new div that contains all the products
-        $('.main').html("<div id='productList_div'></div>");
+        //empty the list of products
+        $('#productList_div').html("");
         //add a button to add a new product
         $('#productList_div').append("<button id='addProduct_button' class='hidden'>Add Product</button>");
         var source = $('#product_template').html();

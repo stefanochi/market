@@ -3,13 +3,15 @@
 class UserReview implements JsonSerializable{
 
     private $writerID;
+    private $writerUsername;
     private $reviewedID;
     private $text;
     private $rating;
     private $pub_date;
     
-    public function __construct($writerID, $reviewedID, $rating, $pub_date, $text=""){
+    public function __construct($writerID, $writerUsername, $reviewedID, $rating, $pub_date, $text=""){
         $this->writerID = $writerID;
+        $this->writerUsername = $writerUsername;
         $this->reviewedID = $reviewedID;
         $this->rating = $rating;
         $this->pub_date = $pub_date;
@@ -19,6 +21,7 @@ class UserReview implements JsonSerializable{
     public function jsonSerialize(){
         return [
             'writerID' => $this->writerID,
+            'writerUsername' => $this->writerUsername,
             'reviewedID' => $this->reviewedID,
             'rating' => $this->rating,
             'pub_date' => $this->pub_date,

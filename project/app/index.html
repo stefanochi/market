@@ -13,6 +13,7 @@
         <script src="app/js/router.js"></script>
         <script src="app/js/navbar.js"></script>
         <script src="app/js/cart.js"></script>
+        <script src="app/js/reviews.js"></script>
         <script src="app/js/main.js"></script>
 
         <link rel="stylesheet" href="app/css/style.css">
@@ -39,12 +40,27 @@
             <div class="right"></div>
         </div>
         <div class="templates">
-            <script id="home_template" type="text/x-handlebars-template">
-                <div class="profile_div">
+            <script id="profile_template" type="text/x-handlebars-template">
+                <div id="info_div">
                     <p>This is the homepage for {{username}}</p>
                     <p>Email: {{email}}</p>
-                    <button id="products_button">Products</button>
                 </div>
+                <div id="productList_div">
+                    <!-- list of selling products -->
+                </div>
+                <div id="reviews_div">
+                    <div id="addReview_div" class="hidden">
+                        <!-- form to add review -->
+                        <form>
+                            <input id="addReview_text" type='text' placeholder="text">
+                            <input id="addReview_rating" type="number" placeholder="rating">
+                            <input id="addReview_submit" type="submit" value="Send">
+                        </form>
+                    </div>
+                    <div id="reviewList_div">
+                        <!-- listo of reviews -->
+                    </div>
+                </div> 
             </script>
             
             <script id="login_template" type="text/x-handlebars-template">
@@ -94,6 +110,16 @@
                     <h2 class="cartProduct_title">{{title}}</h2>
                     <h2 class="cartProduct_price">{{price}}</h2>
                     <button class="cartProduct_remove">Remove</button> 
+                </div>
+            </script>
+
+            <script id="review_template" type="text/x-handlebars-template">
+                <div id="review_{{writerID}}" class="review_div">
+                    <h2>{{rating}}</h2>
+                    <h2>{{writerUsername}}</h2>
+                    <p>{{text}}</p>
+                    <p>{{pub_date}}</p>
+                    <button class="remove_review hidden">Remove</button>
                 </div>
             </script>
 

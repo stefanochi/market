@@ -93,8 +93,8 @@ var Cart = (function(){
             var template = Handlebars.compile(source);
             
             for(var i=0; i<cartProducts.length; i++){
-                var context = cartProducts[i];
-                var html = template(context);
+                var content = cartProducts[i];
+                var html = template(content);
 
                 $('#cart_div').prepend(html);
             }
