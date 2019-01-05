@@ -6,13 +6,25 @@ var Profile = (function(){
     function init(requestedProfile){
         //empty the content of the page to be replaced
         $('.main').html("");
-        Cart.init();
-        profileID = requestedProfile;
-        loadProfile(function(){
-            showProfile();
-            Products.loadProductsByUserID(profileID);
-            Review.init(profileID);
-        });
+        if(!requestedProfile){
+            if(loggedUser.info){
+                //if no user is specified and the user is logged in
+                //go to the profile of the logged user
+                Router.navigate('#profile/'+loggedUser.info.ID);
+            }else{
+                //otherwise go to hte login page
+                Router.navigate('#login');
+            }
+        }else{
+            //the user requested a specific profile
+            Cart.init();
+            profileID = requestedProfile;
+            loadProfile(function(){
+                showProfile();
+                Products.loadProductsByUserID(profileID);
+                Review.init(profileID);
+            });
+        }
         
     }
 
@@ -43,7 +55,7 @@ var Profile = (function(){
         console.log('showing profile');
         var source = $('#profile_template').html();
         var template = Handlebars.compile(source);
-        var context = {username: user.username, email: user.email};
+        var context = user;
         var html = template(context);
         $('.main').html(html);
 

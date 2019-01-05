@@ -7,15 +7,7 @@ var Products = (function(){
     function loadProductsByUserID(requestedID){
         userID = requestedID;
         if(!userID){
-            if(loggedUser.info){
-                //if no user is specified and the user is logged in
-                //go to the products page of the user
-                Router.navigate('#products/' + loggedUser.info.ID);
-            }else{
-                //not logged in and no user specified
-                Router.navigate('#login');
-            }
-            
+                Router.navigate('#login');  
         }else{
             //if the user requested the products of another user, show that instead
             var payload = {id: userID};

@@ -72,7 +72,8 @@ var Cart = (function(){
         $('.right').html("");
         //create a div for the cart
         $('.right').html("<div id='cart_div'></div>");
-        $('#cart_div').html("<button id='cart_buy'>Buy Products</button>");
+        $('#cart_div').append("<h1>Cart</h1>");
+        $('#cart_div').append("<button id='cart_buy'>Buy Products</button>");
         //add drag and drop functionality
         $('#cart_div').on('dragover', function(e){
             e.preventDefault();
@@ -96,7 +97,7 @@ var Cart = (function(){
                 var content = cartProducts[i];
                 var html = template(content);
 
-                $('#cart_div').prepend(html);
+                $('#cart_div').append(html);
             }
         }
 

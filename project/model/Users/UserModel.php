@@ -38,7 +38,7 @@ class UserModel{
         }
         
         $stmt = $this->db->prepare(
-            'SELECT ID, username, email, reg_date
+            'SELECT *
             FROM Users
             WHERE username = ? AND password = ?');
 

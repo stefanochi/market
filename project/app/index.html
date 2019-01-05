@@ -20,35 +20,37 @@
     </head>
     <body>
         <div class="navbar">
-            <ul>
-                <li>
-                    <h1>Name of the website</h1>
-                </li>
-                <li class="nav_search">
-                    <input id="search_input" placeholder="Search">
-                    <button id="search_submit">Search</button>
-                </li>
-                <li>
-                    <button id="logout_button" class="navbar_button">Logout</button>
-                </li>
-            </ul>
+            <div class="nav_links">
+                <a href="#home">Home</a>
+                <a href="#profile/">Profile</a>
+            </div>
+            <div class="nav_search">
+                <input id="search_input" placeholder="Search">
+                <button id="search_submit" class="navbar_button">Search</button>
+            </div>
+            <div class="nav_buttons">
+                <button id="logout_button" class="navbar_button">Logout</button>
+            </div>
         </div>
         <div class="content">
             <!--this div will contain the content of the page-->
-            <div class="left"></div>
-            <div class="main"></div>
-            <div class="right"></div>
+            <div class="column cl-1"><div class="left"></div></div>
+            <div class="column cl-2"><div class="main"></div></div>
+            <div class="column cl-3"><div class="right"></div></div>
         </div>
         <div class="templates">
             <script id="profile_template" type="text/x-handlebars-template">
-                <div id="info_div">
-                    <p>This is the homepage for {{username}}</p>
-                    <p>Email: {{email}}</p>
+                <div id="info_div" class="section_main">
+                    <img src={{image}}>
+                    <h1>{{username}}</h1>
+                    <h2>Email: {{email}}</h2>
+                    <h2>{{rating}}</h2>
+                    <p>{{info}}</p>
                 </div>
-                <div id="productList_div">
+                <div id="productList_div" class="section_main">
                     <!-- list of selling products -->
                 </div>
-                <div id="reviews_div">
+                <div id="reviews_div" class="section_main">
                     <div id="addReview_div" class="hidden">
                         <!-- form to add review -->
                         <form>
@@ -116,7 +118,7 @@
             <script id="review_template" type="text/x-handlebars-template">
                 <div id="review_{{writerID}}" class="review_div">
                     <h2>{{rating}}</h2>
-                    <h2>{{writerUsername}}</h2>
+                    <a href="#profile/{{writerID}}"><h2>{{writerUsername}}</h2></a>
                     <p>{{text}}</p>
                     <p>{{pub_date}}</p>
                     <button class="remove_review hidden">Remove</button>
