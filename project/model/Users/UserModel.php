@@ -12,6 +12,48 @@ class UserModel{
         $this->db = $database;
     }
 
+    //edit the information of an existing user
+    public function editUser($userID, $username, $email, $image){
+        //update the username
+        if($username != NULL){
+            $stmt = $this->db->prepare(
+                'UPDATE Users
+                 SET username = ?
+                 WHERE ID = ?'
+            );
+            $res = $stmt->execute([$username, $userID]);
+            if(!$res){
+                throw new Exception("error updating username");
+            }
+        }
+        //update the email
+        if($email != NULL){
+            $stmt = $this->db->prepare(
+                'UPDATE Users
+                 SET email = ?
+                 WHERE ID = ?'
+            );
+            $res = $stmt->execute([$email, $userID]);
+            if(!$res){
+                throw new Exception("error updating email");
+            }
+        }
+        //update the image
+        if($image != NULL){
+            $stmt = $this->db->prepare(
+                'UPDATE Users
+                 SET image = ?
+                 WHERE ID = ?'
+            );
+            $res |= $stmt->execute([$image, $userID]);
+            if(!$res){
+                throw new Exception("error updating image");
+            }
+        }
+
+        return $this->getUserByUsername($username);
+    }
+
     public function addUser($username, $password, $email){
         if($password == "" && !isset($password)){
             throw new Exception("password can't be empty");

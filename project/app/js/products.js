@@ -3,6 +3,21 @@ var Products = (function(){
     var userID;
     var products;
 
+    function init(requestedID){
+        //setListeners
+        $('#addProduct_button').click(showAddProductForm);
+
+        $('#product_add').click(function(){
+            addProduct();
+            removeAddProductForm();
+        });
+        $('#addProduct_modal .close').click(function(){
+            removeAddProductForm();
+        });
+
+        loadProductsByUserID(requestedID);
+    }
+
     //get all the products of the specified user
     function loadProductsByUserID(requestedID){
         userID = requestedID;
@@ -26,7 +41,10 @@ var Products = (function(){
     //get all the products with the title matching the search string
     function loadProductsBySearch(search){
         userID = null;
-        $('.main').html("<div id='productList_div'></div>");
+        var source = $('#searchResult_template').html();
+        var template = Handlebars.compile(source);
+        var html = template();
+        $('.main').html(html);
         //request to the server
         $.get("ajax/products/search", {search: search}, function(res){
             if(res.state == 0){
@@ -43,8 +61,6 @@ var Products = (function(){
     function showProducts(){
         //empty the list of products
         $('#productList_div').html("");
-        //add a button to add a new product
-        $('#productList_div').append("<button id='addProduct_button' class='hidden'>Add Product</button>");
         var source = $('#product_template').html();
         var template = Handlebars.compile(source);
         for(var i=0; i<products.length; i++){
@@ -78,8 +94,6 @@ var Products = (function(){
         //$('.product_update').click(updateProduct);
 
         $('.product_addToCart').click(addProductToCart);
-        
-        $('#addProduct_button').click(showAddProductForm);
     }
 
     function addProductToCart(e){
@@ -95,11 +109,19 @@ var Products = (function(){
     }
     
     function showAddProductForm(){
-        var source = $('#addProduct_template').html();
-        var template = Handlebars.compile(source);   
-        $('.main').html(template());
-    
-        $('#product_add').click(addProduct);
+        //show the window
+        $('#addProduct_modal').removeClass('hidden');
+        
+        //empty the text fields
+        $('#product_title').val("");
+        $('#product_price').val("");
+        $('#product_description').val("");
+        $('#product_image').val("");
+        
+    }
+
+    function removeAddProductForm(){
+        $('#addProduct_modal').addClass('hidden');
     }
     
     function addProduct(){
@@ -119,6 +141,7 @@ var Products = (function(){
     }
 
     return{
+        init: init,
         loadProductsByUserID: loadProductsByUserID,
         loadProductsBySearch: loadProductsBySearch
     }

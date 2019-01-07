@@ -41,28 +41,83 @@
         <div class="templates">
             <script id="profile_template" type="text/x-handlebars-template">
                 <div id="info_div" class="section_main">
+                    <!-- when clicked it shows a windows to edit the profile -->
+                    <span id="editProfile_button" class="hidden">Edit</span>
+                    <div id="editProfile_modal" class="modal hidden">
+                        <div class="editProfile_div modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h1>Edit Profile</h1>
+                            </div>
+                            <form id="editProfile_form" class="modal-body">
+                                <input id="editProfile_username" type="text" placeholder="Username">
+                                <input id="editProfile_email" type="email" placeholder="Email">
+                                <input id="editProfile_image" type="url" placeholder="Profile Picture url">
+                                <input type="submit" value="Save">
+                            </form>
+                        </div>
+                    </div>
                     <img src={{image}}>
                     <h1>{{username}}</h1>
                     <h2>Email: {{email}}</h2>
                     <h2>{{rating}}</h2>
                     <p>{{info}}</p>
                 </div>
-                <div id="productList_div" class="section_main">
-                    <!-- list of selling products -->
+                <div id="products_div" class="section_main">
+                    <h1>Products sold by the user</h1>
+                    <!-- button to show the form to add a new product -->
+                    <button id='addProduct_button' class='hidden'>Add Product</button>
+                    <!-- window to add a new product -->
+                    <div id="addProduct_modal" class="hidden modal">
+                            <div class="addProduct_div modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                    <h1>Add new product</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" id="product_title" placeholder="Title">
+                                    <input type="number" id="product_price" placeholder="Price">
+                                    <input type="text" id="product_description" placeholder="Description">
+                                    <input type="url" id="product_image" placeholder="Image Url">
+                                    <button id="product_add">Add Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    <div id="productList_div">
+                        <!-- list of selling products -->
+                    </div>
                 </div>
                 <div id="reviews_div" class="section_main">
-                    <div id="addReview_div" class="hidden">
-                        <!-- form to add review -->
-                        <form>
-                            <input id="addReview_text" type='text' placeholder="text">
-                            <input id="addReview_rating" type="number" placeholder="rating">
-                            <input id="addReview_submit" type="submit" value="Send">
-                        </form>
+                    <h1>Reviews of the user</h1>
+                    <!-- button to show the form to add a new product -->
+                    <button id='addReview_button' class='hidden'>Leave Review</button>
+                    <div id="addReview_modal" class="hidden modal">
+                        <div class="addReview_div modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h1>Add new review</h1>
+                            </div>
+                            <!-- form to add review -->
+                            <form id="addReview_form" class="modal-body">
+                                <input id="addReview_text" type='text' placeholder="text">
+                                <input id="addReview_rating" type="number" placeholder="rating">
+                                <input id="addReview_submit" type="submit" value="Send">
+                            </form>
+                        </div>
                     </div>
                     <div id="reviewList_div">
                         <!-- listo of reviews -->
                     </div>
                 </div> 
+            </script>
+
+            <script id="searchResult_template" type="text/x-handlebars-template">
+                <div id="products_div" class="section_main">
+                    <h1>Products found</h1>
+                    <div id="productList_div">
+                        <!-- list of selling products -->
+                    </div>
+                </div>
             </script>
             
             <script id="login_template" type="text/x-handlebars-template">
@@ -88,22 +143,18 @@
                 <div class="product_div" id={{ID}}>
                     <div class="title_div">
                         <h1 class="product_title">{{title}}</h1>
+                        by <a href="#profile/{{ownerID}}" class="product_owner">{{ownerName}}</a>
+                        <span class="product_sold">
+                            {{#if sold}}
+                                Sold 
+                            {{/if}}
+                        </span>
                         <h2 class="product_price">{{price}}</h2>
                     </div>
                     <img src={{image}}>
                     <p class="product_description">{{description}}</p>
                     <div class="button_div">
                     </div>
-                </div>
-            </script>
-
-            <script id="addProduct_template" type="text/x-handlebars-template">
-                <div class="addProduct_div">
-                    <input type="text" id="product_title" placeholder="Title">
-                    <input type="number" id="product_price" placeholder="Price">
-                    <input type="text" id="product_description" placeholder="Description">
-                    <input type="url" id="product_image" placeholder="Image Url">
-                    <button id="product_add">Add Product</button>
                 </div>
             </script>
 

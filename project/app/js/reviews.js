@@ -8,23 +8,45 @@ var Review = (function(){
         if(loggedUser.info && loggedUser.info.ID != reviewedID){
             //if the user is watching someone else reviews
             //add the possibility to leave a review
-            showAddReviewForm();
+            enableAddReview();
         }
         loadReviews(reviewedID);
     }
 
-    function showAddReviewForm(){
-        //show the form
-        $('#addReview_div').removeClass('hidden');
-
-        //add the listeners
-        $('#addReview_submit').click(function(e){
+    function enableAddReview(){
+        //show the button to add the review
+        $('#addReview_button').removeClass('hidden');
+        //set the listener for the button
+        $('#addReview_button').click(function(){
+            showAddReviewForm();
+        });
+        //listener for closing the new review window
+        $('#addReview_modal .close').click(function(){
+            removeAddReviewForm();
+        });
+        //listener for form submit
+        $('#addReview_form').submit(function(e){
             e.preventDefault();
             //add the review
             var text = $('#addReview_text').val();
             var rating = $('#addReview_rating').val();
             sendReview(text, rating);
+
+            removeAddReviewForm();
         });
+    }
+
+    function showAddReviewForm(){
+        //show the form
+        $('#addReview_modal').removeClass('hidden');
+
+        //ensure that the text fields are empty
+        $('#addReview_text').val("");
+        $('#addReview_rating').val("");
+    }
+
+    function removeAddReviewForm(){
+        $('#addReview_modal').addClass('hidden');
     }
 
     function sendReview(text, rating){

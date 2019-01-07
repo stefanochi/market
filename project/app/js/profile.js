@@ -21,7 +21,7 @@ var Profile = (function(){
             profileID = requestedProfile;
             loadProfile(function(){
                 showProfile();
-                Products.loadProductsByUserID(profileID);
+                Products.init(profileID);
                 Review.init(profileID);
             });
         }
@@ -59,14 +59,65 @@ var Profile = (function(){
         var html = template(context);
         $('.main').html(html);
 
-        setProfileListeners();
+        if(profileID == loggedUser.info.ID){
+            enableEditProfile();
+        }
     }
 
-    //set the listeners for the profile
-    function setProfileListeners(){
-    
-        $('#products_button').click(function(){
-            Router.navigate('#products/user/' + profileID);
+    function enableEditProfile(){
+        //show the button to edit the profile
+        $('#editProfile_button').removeClass('hidden');
+        //set the listener for the button
+        $('#editProfile_button').click(function(){
+            showEditProfileForm();
+        });
+        //listener for closing the new review window
+        $('#editProfile_modal .close').click(function(){
+            removeEditProfileForm();
+        });
+        //listener for save
+        $('#editProfile_form').submit(function(e){
+            e.preventDefault();
+
+            var username = $('#editProfile_username').val();
+            var email = $('#editProfile_email').val();
+            var image = $('#editProfile_image').val();
+
+            updateProfileInfo(username, email, image);
+
+            removeEditProfileForm();
+        })
+    }
+
+    function showEditProfileForm(){
+        $('#editProfile_modal').removeClass('hidden');
+
+        //ensure that the text fields are empty
+        $('#editProfile_username').val("");
+        $('#editProfile_email').val("");
+        $('#editProfile_image').val("");
+    }
+
+    function removeEditProfileForm(){
+        $('#editProfile_modal').addClass('hidden');
+    }
+
+    function updateProfileInfo(username, email, image){
+        var payload = {
+            userID: loggedUser.info.ID,
+            username: username,
+            email: email,
+            image: image
+        }
+        $.post('ajax/profile/update', payload, function(res){
+            if(res.state == 0){
+                loggedUser.info = res.data;
+                init(loggedUser.info.ID);
+            }else{
+                console.log("failed to update profile: " + res.message);
+                //TODO
+                //show notice to the user
+            }
         });
     }
 

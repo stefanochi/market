@@ -4,21 +4,23 @@ class Product implements JsonSerializable{
     
     private $id;
     private $title;
-    private $owner;
+    private $ownerID;
+    private $ownerName;
     private $price;
     private $offers;
     private $description;
     private $image;
     private $sold;
 
-    public function __construct($id, $title, $description, $price, $owner, $image="", $sold=false){
+    public function __construct($id, $title, $description, $price, $ownerID, $ownerName, $image="", $sold=false){
         $this->id = $id;
         $this->title = $title;
         $this->price = $price;
         $this->description = $description;
-        $this->owner = $owner;
+        $this->ownerID = $ownerID;
+        $this->ownerName = $ownerName;
         $this->image = $image;
-        $this->sold = $sold;
+        $this->sold = (bool)$sold;
     }
 
     public function jsonSerialize(){
@@ -27,7 +29,8 @@ class Product implements JsonSerializable{
             'title' => $this->title,
             'description' => $this->description,
             'price' => $this->price,
-            'ownerID' => $this->owner,
+            'ownerID' => $this->ownerID,
+            'ownerName' => $this->ownerName,
             'image' => $this->image,
             'sold' => $this->sold
         ];
@@ -68,11 +71,11 @@ class Product implements JsonSerializable{
     }
 
     public function getOwnerID(){
-        return $this->owner;
+        return $this->ownerID;
     }
 
-    public function setOwner($owner){
-        $this->owner = $owner;
+    public function setOwner($ownerID){
+        $this->ownerID = $ownerID;
     }
 
     public function setImage($image){

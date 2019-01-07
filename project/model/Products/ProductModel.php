@@ -13,8 +13,8 @@ class ProductModel{
 
     public function searchProducts($search){
         $stmt =  $this->db->prepare(
-            "SELECT * 
-             FROM Products
+            "SELECT Products.ID, title, description, price, ownerID, Users.username AS ownerName, Products.image AS image, sold
+             FROM Products JOIN Users ON ownerID = Users.ID
              WHERE title LIKE ? AND sold=FALSE"
         );
         $res = $stmt->execute(["%" . $search . "%"]);
@@ -30,6 +30,7 @@ class ProductModel{
                 $product['description'],
                 $product['price'],  
                 $product['ownerID'],
+                $product['ownerName'],
                 $product['image'],
                 $product['sold']
             ));
@@ -111,9 +112,9 @@ class ProductModel{
 
     public function getProductByID($productID){
         $stmt = $this->db->prepare(
-            'SELECT *
-            FROM Products
-            WHERE ID = ?');
+            'SELECT Products.ID, title, description, price, ownerID, Users.username AS ownerName, Products.image AS image, sold
+            FROM Products JOIN Users ON ownerID = Users.ID
+            WHERE Products.ID = ?');
         $res = $stmt->execute([$productID]);
         if(!$res){
             throw new Exception("getProductByID(): something went wrong");
@@ -131,6 +132,7 @@ class ProductModel{
             $product['description'],
             $product['price'],
             $product['ownerID'],
+            $product['ownerName'],
             $product['image'],
             $product['sold']
         );
@@ -138,8 +140,8 @@ class ProductModel{
 
     public function getAllProductsByUserID($ownerID){
         $stmt = $this->db->prepare(
-            'SELECT *
-            FROM Products
+            'SELECT Products.ID, title, description, price, ownerID, Users.username AS ownerName, Products.image AS image, sold
+            FROM Products JOIN Users ON ownerID = Users.ID
             WHERE ownerID = ?');
         $res = $stmt->execute([$ownerID]);
         if(!$res){
@@ -154,6 +156,7 @@ class ProductModel{
                 $product['description'],
                 $product['price'],  
                 $product['ownerID'],
+                $product['ownerName'],
                 $product['image'],
                 $product['sold']
             ));

@@ -7,6 +7,24 @@ body{
 	color: white;
 }
 
+button{
+	border-radius: 100px;
+    box-shadow: none;
+    background-color: #15202b;
+    border: 1px solid #1da1f2;
+    color: #1da1f2;
+    font-size: 12px;
+    padding: 4px 12px;
+    margin-right: 10px;
+    text-align: center;
+	height: 32px;
+	cursor: pointer;
+}
+
+button:hover{
+	background-color: #1b3448;
+}
+
 .navbar{
   	color: white;
   	background-color: #223342;
@@ -33,12 +51,17 @@ body{
 
 .nav_links a{
 	padding: 14px;
-	color: #f2f2f2 
+	color: #8899a6; 
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom-color: #1da1f2;
+	border-bottom-width: 2px;
+	border-bottom-style: hidden; 
+	text-decoration: none;
 }
 
 .nav_links a:hover{
-	background-color: #ddd;
-	color: black;
+	border-bottom-style: solid; 
 }
 
 .nav_search{
@@ -54,16 +77,17 @@ body{
 
 #search_input{
 	flex-grow: 1;
-	margin-right: 10px;
-	border-radius: 20px;
-	padding-left: 10px;
-	border-style: none;
-}
-
-.navbar_button{
-	border-radius: 5px;
-	border-style: none;
-	background-color: white;
+	background-color: #182430;
+    border-radius: 21px;
+    border: 1px solid #38444d;
+    color: #fff;
+    font-size: 12px;
+    height: 32px;
+    line-height: 16px;
+    padding: 8px 32px 8px 12px;
+    transition: all .2s ease-in-out;
+    width: 100%;
+    margin-right: 10px;
 }
 
 .sidebar{
@@ -72,6 +96,8 @@ body{
 
 .content{
 	display: block;
+	width: 70%;
+	margin: auto;
 }
 
 .column{
@@ -125,7 +151,19 @@ body{
 	word-break: break-all;
 }
 
+#editProfile_button{
+	color: gray;
+	float: right;
+}
+
+#editProfile_button:hover{
+	color: white;
+	cursor: pointer;
+}
+
 #info_div img{
+	margin-right: 20px;
+	border-radius: 150px;
 	width: 150px;
 	float: left;
 }
@@ -141,6 +179,24 @@ body{
 	border-color: #414950;
 }
 
+.title_div *{
+	display: inline-block;
+}
+.title_div .product_price{
+	float: right;
+	font-size: 40px;
+	margin-bottom: 0;
+	margin-top: 20px;
+	margin-right: 40px
+}
+
+.title_div .product_sold{
+	margin-left: 10px;
+	font-size: 20px;
+	color: gray;
+}
+
+
 #cart_div{
 	min-height: 500px;
 	padding: 10px
@@ -149,6 +205,66 @@ body{
 img{
 	max-width: 100%;
 	height: auto;
+}
+
+.modal{
+	display: block; 
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content{
+	background-color: #fefefe;
+  	margin: 15% auto; /* 15% from the top and centered */
+  	border: 1px solid #888;
+  	width: 60%; /* Could be more or less, depending on screen size */
+  	color: black;
+}
+
+.modal-body > *{
+	display: block;
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 10px;
+	border-radius: 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.modal-body{
+	padding: 50px;
+	padding-top: 30px;
+}
+
+.modal-header {
+  	padding: 2px 16px;
+  	background-color: #223342;
+  	color: white;
+  	padding-right: 2;
+}
+
+.close {
+  	color: white;
+  	float: right;
+  	font-size: 28px;
+  	font-weight: bold;
+  	display: inline-block;
+  	width: 32px;
+  	text-align: center;
+}
+
+.close:hover,
+.close:focus {
+  	color: #aaa;
+  	text-decoration: none;
+  	cursor: pointer;
 }
 
 .hidden{

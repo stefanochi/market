@@ -32,6 +32,11 @@ class Controller{
                 $res = $profileController->sendProfile();
                 $res->sendResponse();
                 break;
+            case '/project/ajax/profile/update':
+                $profileController = new ProfileController();
+                $res = $profileController->updateProfile();
+                $res->sendResponse();
+                break;
             case '/project/ajax/logout':
                 $loginController = new loginController();
                 $res = $loginController->logout();
