@@ -31,11 +31,12 @@ var Products = (function(){
                     products = res.data;
                     showProducts();
                 }else{
-                    console.log(res.message);
+                    //show an error to the user
+                    showError("Could not load the products");
                 }
-            });
 
-            setListenersProducts();
+                setListenersProducts();
+            });
         }
        
     }
@@ -61,11 +62,12 @@ var Products = (function(){
                 //show the list of products
                 showProducts();
             }else{
-                console.log(res.message);
+                //show an error to the user
+                showError("Could not load the products");
             }
-        });
 
-        setListenersProducts();
+            setListenersProducts();
+        });
     }
     
     //show the list of products, indipendently of the method used to get the data
@@ -102,7 +104,10 @@ var Products = (function(){
         $('.product_delete').click(buttonDelete);
         //$('.product_update').click(updateProduct);
 
-        $('.product_addToCart').click(addProductToCart);
+        $('.product_addToCart').click(function(e){
+            var productID = $(e.target).parent().parent().attr('id');
+            Cart.addProductToCart(productID);
+        });
         $('#advancedSearch_form').submit(function(e){
             e.preventDefault();
 
@@ -115,16 +120,16 @@ var Products = (function(){
             loadProductsBySearch(arguments);
         });
     }
-
-    function addProductToCart(e){
-        var productID = $(e.target).parent().parent().attr('id');
-        Cart.addProductToCart(productID);
-    }
     
     function buttonDelete(e){
         var productID = $(e.target).parent().parent().attr('id');
         $.post('/project/ajax/products/delete', {productID: productID}, function(res){
-            loadProductsByUserID(loggedUser.info.ID);
+            if(res.state == 0){
+                showMessage("Product removed successfully");
+                loadProductsByUserID(loggedUser.info.ID);
+            }else{
+                showError("Could not remove the product");
+            }
         });   
     }
     
@@ -153,9 +158,11 @@ var Products = (function(){
         }
         $.post("/project/ajax/products/add", payload ,function(res){
             if(res.state == 0){
+                showMessage("Product added successfully");
                 loadProductsByUserID(loggedUser.info.ID);
             }else{
-                console.log(res.message);
+                //show an error to the user
+                showError("Could not add the product");
             }
         });
     }

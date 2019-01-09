@@ -115,12 +115,6 @@ var Login = (function(){
             }
         });
     }
-    
-    function showError(message){
-        console.log("showing error");
-        $('.form_div .alert_div').remove();
-        $('.form_div').prepend($('<div class="alert_div"></div>').html(message));
-    }
 
     return {
         initLogin: initLogin,

@@ -7,7 +7,7 @@ body{
 	color: white;
 }
 
-button, input[type=submit]{
+button, input[type=submit	]{
 	border-radius: 100px;
     box-shadow: none;
     background-color: #15202b;
@@ -88,6 +88,35 @@ button:hover{
     transition: all .2s ease-in-out;
     width: 100%;
     margin-right: 10px;
+}
+
+.alert_div{
+	display: block;
+	width: 40%;
+	border-radius: 10px;
+	padding: 12px;
+	text-align: center;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	height: 40px;
+	color: white;
+	margin-top: 10px;
+	font-size: 15px;
+}
+
+.negative{
+	background-color: #f44336;
+}
+
+.positive{
+	background-color: #4CAF50;
+}
+
+.alert_text{
+	vertical-align: middle;
 }
 
 .sidebar{
@@ -271,14 +300,6 @@ img{
 	display: none;
 }
 
-.alert_div{
-	background-color: rgba(255, 0, 0, 0.4);
-	border-style: solid;
-	border-color: red;
-	color: red;
-	padding: 10px;
-	height: auto;
-}
 
 @media screen and (max-width: 768px){
 	.cl-1{

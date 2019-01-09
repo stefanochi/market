@@ -23,7 +23,9 @@ var Cart = (function(){
                     cartProducts = res.data;
                     showCartProducts();
                 }else{
-                    //TODO show a notice to the user
+                    //show an error to the user
+                    showError(res.message);
+
                     console.log("Error adding product to cart: " + res.message);
                 }
             });
@@ -48,13 +50,15 @@ var Cart = (function(){
                         cartProducts = res.data;
                         showCartProducts();
                     }else{
-                        //TODO show a notice to the user
+                        //show an error to the user
+                        showError(res.message);
+
                         console.log("Error removing product to cart: " + res.message);
                     }
                 });
             }else{
-                //the user is not logged in
-                console.log("User not logged in");
+                //show an error to the user
+                showError("You are nor logged in");
             }
         }
     }
@@ -64,6 +68,10 @@ var Cart = (function(){
             if(res.state == 0){
                 cartProducts = res.data;
                 showCartProducts();
+            }else{
+                //show an error to the user
+                showError("Could not load Cart");
+                console.log(res.message);
             }
         });
     }
@@ -121,11 +129,11 @@ var Cart = (function(){
         if(loggedUser.info)
             $.post('ajax/cart/buy', {userID: loggedUser.info.ID}, function(res){
                 if(res.state == 0){
+                    showMessage("Products bought successfully");
                     Cart.init();
                 }else{
-                    console.log("error buying products");
-                    //TOTO 
-                    //display error message
+                   //show an error to the user
+                   showError("Error buying products");
                 }
             });
     }

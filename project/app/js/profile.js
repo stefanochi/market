@@ -42,6 +42,8 @@ var Profile = (function(){
                     user = res.data;
                     callback();
                 }else{
+                    //show an error to the user
+                    showError("You need to be logged in");
                     //otherwise return to login page
                     Router.navigate('#login');
                 }
@@ -112,11 +114,11 @@ var Profile = (function(){
         $.post('ajax/profile/update', payload, function(res){
             if(res.state == 0){
                 loggedUser.info = res.data;
+                showMessage("Profile updated successfully");
                 init(loggedUser.info.ID);
             }else{
-                console.log("failed to update profile: " + res.message);
-                //TODO
-                //show notice to the user
+                //show an error to the user
+                showError("Could not update the profile");
             }
         });
     }

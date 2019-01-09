@@ -60,11 +60,11 @@ var Review = (function(){
             $.post('ajax/reviews/add', payload, function(res){
                 if(res.state == 0){
                     reviews = res.data;
+                    showMessage("Review added successfully");
                     showReviews();
                 }else{
-                    console.log("error adding review: " + res.message);
-                    //TODO
-                    //show notice to the user
+                    //show an error to the user
+                    showError("Could not add the review");
                 }
             });
         }
@@ -83,6 +83,10 @@ var Review = (function(){
                 reviews = res.data;
                 //reprint the reviews
                 showReviews();
+                showMessage("Review removed successfully");
+            }else{
+                //show an error to the user
+                showError("Could not remove the review: " + res.message);
             }
         });
     }
@@ -94,9 +98,8 @@ var Review = (function(){
                 //TOTO organize better
                 showReviews();
             }else{
-                console.log("error retreiving reviews");
-                //TODO
-                //display error to user
+                //show an error to the user
+                showError("Could not load the reviews");
             }
         });
     }

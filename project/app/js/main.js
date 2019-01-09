@@ -27,12 +27,26 @@ var loggedUser = {
    }
 }
 
-var showError = function(){
-   var source = "<p>Error {{Error}}</p>";
-   var template = Handlebars.compile(source);
-   var context = {Error: "404"};
-   var html = template(context);
-   $('.main').html(html);
+var showMessage = function(message){
+   $('#alert_text').html(message);
+   $('.alert_div').removeClass('negative');
+   $('.alert_div').addClass('positive');
+   $('.alert_div').removeClass('hidden');
+   //remove the alert after 5 seconds
+   setTimeout(function(){
+      $('.alert_div').addClass('hidden');
+   }, 5000);
+}
+
+var showError = function(message){
+   $('#alert_text').html(message);
+   $('.alert_div').removeClass('positive');
+   $('.alert_div').addClass('negative');
+   $('.alert_div').removeClass('hidden');
+   //remove the alert after 5 seconds
+   setTimeout(function(){
+      $('.alert_div').addClass('hidden');
+   }, 5000);
 }
 
 $('docuemnt').ready(function(){
