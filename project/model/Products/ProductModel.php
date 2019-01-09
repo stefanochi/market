@@ -11,17 +11,36 @@ class ProductModel{
         $this->db = $database;
     }
 
-    public function searchProducts($search){
+    //given a string, returns all the products that contains that string in the name
+    public function searchProducts($search, $maxPrice, $minPrice, $descending=false){
+
+        //default values if not specified
+        if($minPrice == NULL){
+            $minPrice = 0;
+        }
+        if($maxPrice == NULL){
+            $maxPrice = PHP_INT_MAX;
+        }
+        if($descending == NULL){
+            $descending = false;
+        }
+
         $stmt =  $this->db->prepare(
             "SELECT Products.ID, title, description, price, ownerID, Users.username AS ownerName, Products.image AS image, sold
              FROM Products JOIN Users ON ownerID = Users.ID
-             WHERE title LIKE ? AND sold=FALSE"
+             WHERE title LIKE :search AND sold=FALSE AND price >= :minPrice AND price <= :maxPrice
+             ORDER BY price " . ($descending ? "DESC" : "ASC")
         );
-        $res = $stmt->execute(["%" . $search . "%"]);
+        $stmt->bindValue(':minPrice', (int) $minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice', (int) $maxPrice, PDO::PARAM_INT);
+        $stmt-> bindValue(':search', "%" . $search . "%");
+        $res = $stmt->execute();
         if(!$res){
-            throw new Exception("searchProducts(): something went wrong");
+            throw new Exception("searchProducts(): something went wrong:" . $this->db->errorInfo()[0]);
         }
         $products = $stmt->fetchAll();
+
+        //create an array containing all the products corresponding to the search parameters
         $result = array();
         foreach($products as $product){
             array_push($result, new Product(

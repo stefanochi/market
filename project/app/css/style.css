@@ -7,7 +7,7 @@ body{
 	color: white;
 }
 
-button{
+button, input[type=submit]{
 	border-radius: 100px;
     box-shadow: none;
     background-color: #15202b;

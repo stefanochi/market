@@ -114,6 +114,15 @@
             <script id="searchResult_template" type="text/x-handlebars-template">
                 <div id="products_div" class="section_main">
                     <h1>Products found</h1>
+                    <form id="advancedSearch_form" class="advancedSearch_div">
+                        <input id="advancedSearch_minPrice" type="number" placeholder="minimum price" value="null">
+                        <input id="advancedSearch_maxPrice" type="number" placeholder="maximum price" value="null">
+                        <select id="advancedSearch_order">
+                            <option value="descending">Descending</option>
+                            <option value="ascending"  selected="selected">Ascending</option>
+                        </select>
+                        <input type="submit" value="Search">
+                    </form>
                     <div id="productList_div">
                         <!-- list of selling products -->
                     </div>

@@ -34,19 +34,28 @@ var Products = (function(){
                     console.log(res.message);
                 }
             });
+
+            setListenersProducts();
         }
        
     }
     
     //get all the products with the title matching the search string
-    function loadProductsBySearch(search){
+    function loadProductsBySearch(arguments){
         userID = null;
         var source = $('#searchResult_template').html();
         var template = Handlebars.compile(source);
         var html = template();
         $('.main').html(html);
         //request to the server
-        $.get("ajax/products/search", {search: search}, function(res){
+
+        var payload = {
+            search: arguments[0],
+            maxPrice: arguments[1],
+            minPrice: arguments[2],
+            desc: arguments[3],
+        }
+        $.get("ajax/products/search", payload, function(res){
             if(res.state == 0){
                 products = res.data;
                 //show the list of products
@@ -55,6 +64,8 @@ var Products = (function(){
                 console.log(res.message);
             }
         });
+
+        setListenersProducts();
     }
     
     //show the list of products, indipendently of the method used to get the data
@@ -85,8 +96,6 @@ var Products = (function(){
         if(loggedUser.info && loggedUser.info.ID == userID){
             $('#addProduct_button').removeClass('hidden');
         }
-    
-        setListenersProducts();
     }
     
     function setListenersProducts(){
@@ -94,6 +103,17 @@ var Products = (function(){
         //$('.product_update').click(updateProduct);
 
         $('.product_addToCart').click(addProductToCart);
+        $('#advancedSearch_form').submit(function(e){
+            e.preventDefault();
+
+            var arguments = [
+                $('#search_input').val(),
+                $('#advancedSearch_maxPrice').val(),
+                $('#advancedSearch_minPrice').val(),
+                $('#advancedSearch_order').val() == "descending" ? 1 : 0
+            ]
+            loadProductsBySearch(arguments);
+        });
     }
 
     function addProductToCart(e){

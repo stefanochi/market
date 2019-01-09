@@ -46,7 +46,7 @@ return {
            Products.loadProductsByUserID(arguments[0]);
         });
         Router.add(/products\/search\/([a-z0-9_]*)/i, function(){
-            Products.loadProductsBySearch(arguments[0]);
+            Products.loadProductsBySearch(arguments);
         });
      
         Router.hashChanged();
