@@ -51,7 +51,7 @@ class UserModel{
             }
         }
 
-        return $this->getUserByUsername($username);
+        return $this->getUserByID($userID);
     }
 
     public function addUser($username, $password, $email){
