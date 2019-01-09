@@ -31,7 +31,7 @@ var Profile = (function(){
     //request the profile information
     function loadProfile(callback){
         //if we request the profile of the logged user we already have the information
-        if(profileID == loggedUser.info.ID){
+        if(loggedUser.info && profileID == loggedUser.info.ID){
             user = loggedUser.info;
             callback();
         }else{
@@ -43,7 +43,7 @@ var Profile = (function(){
                     callback();
                 }else{
                     //show an error to the user
-                    showError("You need to be logged in");
+                    showError(res.message);
                     //otherwise return to login page
                     Router.navigate('#login');
                 }
@@ -61,7 +61,7 @@ var Profile = (function(){
         var html = template(context);
         $('.main').html(html);
 
-        if(profileID == loggedUser.info.ID){
+        if(loggedUser.info && profileID == loggedUser.info.ID){
             enableEditProfile();
         }
     }

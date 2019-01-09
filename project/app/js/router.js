@@ -23,16 +23,13 @@ return {
             }
         }
         if(!matched){
-            this.navigate('#home');
+            this.navigate('#profile/');
         }
     },
     navigate: function(path){
         window.location.hash = path;
     },
     init: function(){
-        Router.add(/home/, function(){
-           console.log("Home page");
-        });
         Router.add(/login/, function(){
            Login.initLogin();
         });
