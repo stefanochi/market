@@ -75,8 +75,8 @@ class CartModel{
 
         //get all the products inside the user's cart
         $stmt = $this->db->prepare(
-            'SELECT ID, title, description, price, image, ownerID
-             FROM Products JOIN Carts ON ID = productID
+            'SELECT Products.ID, title, description, price, Products.image AS image, sold, Users.ID AS ownerID, Users.username AS ownerUsername
+             FROM Products JOIN Carts ON ID = productID JOIN Users ON Products.ownerID = Users.ID
              WHERE userID = ?'
         );
         $res = $stmt->execute([$userID]);
@@ -91,7 +91,9 @@ class CartModel{
                 $product['description'],
                 $product['price'],  
                 $product['ownerID'],
-                $product['image']
+                $product['ownerUsername'],
+                $product['image'],
+                $product['sold']
             ));
         }
         return $result;

@@ -26,10 +26,10 @@
             </div>
             <div class="nav_search">
                 <input id="search_input" placeholder="Search">
-                <button id="search_submit" class="navbar_button">Search</button>
+                <button id="search_submit" class="navbar_button primary_button">Search</button>
             </div>
             <div class="nav_buttons">
-                <button id="logout_button" class="navbar_button">Logout</button>
+                <button id="logout_button" class="navbar_button primary_button">Logout</button>
             </div>
         </div>
         <div class="alert_div hidden">
@@ -39,7 +39,33 @@
             <!--this div will contain the content of the page-->
             <div class="column cl-1"><div class="left"></div></div>
             <div class="column cl-2"><div class="main"></div></div>
-            <div class="column cl-3"><div class="right"></div></div>
+            <div class="column cl-3"><div class="right">
+                <div id="cart_div" class="hidden">
+                    <div id="confirmCheckout_modal" class="modal hidden">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h1>Confirmation</h1>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure?</p>
+                                <div class="modal-buttons">
+                                    <button class="confirm primary_button float_right">Checkout</button>
+                                    <button class="cancel secondary_button float_right">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header_div">
+                        <h1>Cart</h1>
+                        <button id="cart_buy" class="primary_button">Checkout</button>
+                    </div>
+                    <div id="cartList_div">
+                        <!-- contains the products in the cart -->
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
         <div class="templates">
             <script id="profile_template" type="text/x-handlebars-template">
@@ -52,12 +78,15 @@
                                 <span class="close">&times;</span>
                                 <h1>Edit Profile</h1>
                             </div>
-                            <form id="editProfile_form" class="modal-body">
+                            <div id="editProfile_form" class="modal-body">
                                 <input id="editProfile_username" type="text" placeholder="Username">
                                 <input id="editProfile_email" type="email" placeholder="Email">
                                 <input id="editProfile_image" type="url" placeholder="Profile Picture url">
-                                <input type="submit" value="Save">
-                            </form>
+                                <div class="modal-buttons">
+                                    <button id="editProfile_save" class=" confirm primary_button float_right">Save</button>
+                                    <button class="cancel secondary_button float_right">Cancel</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <img src={{image}}>
@@ -69,7 +98,7 @@
                 <div id="products_div" class="section_main">
                     <h1>Products sold by the user</h1>
                     <!-- button to show the form to add a new product -->
-                    <button id='addProduct_button' class='hidden'>Add Product</button>
+                    <button id='addProduct_button' class='primary_button hidden'>Add Product</button>
                     <!-- window to add a new product -->
                     <div id="addProduct_modal" class="hidden modal">
                             <div class="addProduct_div modal-content">
@@ -82,7 +111,10 @@
                                     <input type="number" id="product_price" placeholder="Price">
                                     <input type="text" id="product_description" placeholder="Description">
                                     <input type="url" id="product_image" placeholder="Image Url">
-                                    <button id="product_add">Add Product</button>
+                                    <div class="modal-buttons">
+                                        <button class="confirm primary_button float_right">Add Product</button>
+                                        <button class="cancel secondary_button float_right">Cancel</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +125,7 @@
                 <div id="reviews_div" class="section_main">
                     <h1>Reviews of the user</h1>
                     <!-- button to show the form to add a new product -->
-                    <button id='addReview_button' class='hidden'>Leave Review</button>
+                    <button id='addReview_button' class='primary_button hidden'>Leave Review</button>
                     <div id="addReview_modal" class="hidden modal">
                         <div class="addReview_div modal-content">
                             <div class="modal-header">
@@ -104,7 +136,7 @@
                             <form id="addReview_form" class="modal-body">
                                 <input id="addReview_text" type='text' placeholder="text">
                                 <input id="addReview_rating" type="number" placeholder="rating">
-                                <input id="addReview_submit" type="submit" value="Send">
+                                <input id="addReview_submit" class="primary_button" type="submit" value="Send">
                             </form>
                         </div>
                     </div>
@@ -124,7 +156,7 @@
                             <option value="descending">Descending</option>
                             <option value="ascending"  selected="selected">Ascending</option>
                         </select>
-                        <input type="submit" value="Search">
+                        <input class="primary_button" type="submit" value="Search">
                     </form>
                     <div id="productList_div">
                         <!-- list of selling products -->
@@ -136,9 +168,9 @@
                 <div class="form_div">
                     <input type="text" id="username_login" placeholder="Username">
                     <input type="password" id="password_login" placeholder="Password">
-                    <button id="submit_login" >Login</button>
+                    <button id="submit_login" class="primary_button">Login</button>
                     <p>or</p>
-                    <button id="signup_link" >Sign Up</button>
+                    <button id="signup_link" class="primary_button">Sign Up</button>
                 </div>
             </script>
             
@@ -147,7 +179,7 @@
                     <input type="text" id="username_signup" placeholder="Username">
                     <input type="email" id="email_signup" placeholder="Email">
                     <input type="password" id="password_signup" placeholder="Password">
-                    <button id="submit_signup">Sing Up</button>
+                    <button id="submit_signup" class="primary_button">Sing Up</button>
                 </div>
             </script>
             
@@ -165,16 +197,22 @@
                     </div>
                     <img src={{image}}>
                     <p class="product_description">{{description}}</p>
-                    <div class="button_div">
+                    <div class="button_div float_right">
+                            <button class='product_delete primary_button hidden'>Delete</button>
+                            <button class='product_update primary_button hidden'>Update</button>
+                            <button class='product_addToCart primary_button hidden'>Add To Cart</button>
                     </div>
                 </div>
             </script>
 
             <script id="cartProduct_template" type="text/x-handlebars-template">
                 <div id=cartProduct_{{ID}} class="cartProduct_div">
-                    <h2 class="cartProduct_title">{{title}}</h2>
+                    <div>
+                        <h2 class="cartProduct_title">{{title}}</h2>
+                        by <a href="#profile/{{ownerID}}">{{ownerName}}</a>
+                    </div>     
                     <h2 class="cartProduct_price">{{price}}</h2>
-                    <button class="cartProduct_remove">Remove</button> 
+                    <button class="cartProduct_remove primary_button float_right">Remove</button> 
                 </div>
             </script>
 

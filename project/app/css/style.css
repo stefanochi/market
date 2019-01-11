@@ -7,10 +7,24 @@ body{
 	color: white;
 }
 
-button, input[type=submit	]{
+.primary_button{
 	border-radius: 100px;
     box-shadow: none;
     background-color: #15202b;
+    border: 1px solid #1da1f2;
+    color: #1da1f2;
+    font-size: 12px;
+    padding: 4px 12px;
+    margin-right: 10px;
+    text-align: center;
+	height: 32px;
+	cursor: pointer;
+}
+
+.secondary_button{
+	border-radius: 100px;
+    box-shadow: none;
+    background-color: white;
     border: 1px solid #1da1f2;
     color: #1da1f2;
     font-size: 12px;
@@ -206,6 +220,11 @@ button:hover{
 .product_div{
 	border-bottom: 1px solid;
 	border-color: #414950;
+	overflow: hidden;
+	padding-bottom: 5px;
+}
+.product_div .button_div{
+	display: block;
 }
 
 .title_div *{
@@ -227,10 +246,50 @@ button:hover{
 
 
 #cart_div{
-	min-height: 500px;
-	padding: 10px
+	min-height: 300px;
+	overflow: hidden;
+	display: block;
 }
 
+#cart_div .header_div{
+	padding: 10px 0px 10px 10px;
+	background-color: #1b3448;
+}
+#cart_div .header_div h1{
+	margin: 0px;
+	display: inline;
+}
+#cartList_div{
+	min-height: 200px;
+	padding: 10px;
+	padding-top: 0px;
+}
+.cartProduct_div{
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #414950;
+	overflow: hidden;
+	padding-bottom: 10px;
+}
+
+.cartProduct_div div{
+	display: block;
+	margin-bottom: 10px;
+}
+
+.cartProduct_title{
+	margin-bottom: 2px;
+	margin-top: 5px;
+}
+.cartProduct_price{
+	display: inline;
+}
+#cart_buy{
+	float: right
+}
+.float_right{
+	float: right;
+}
 img{
 	max-width: 100%;
 	height: auto;
@@ -256,7 +315,7 @@ img{
   	color: black;
 }
 
-.modal-body > *{
+.modal-body > input{
 	display: block;
 	width: 100%;
 	margin-bottom: 10px;
@@ -277,6 +336,10 @@ img{
   	background-color: #223342;
   	color: white;
   	padding-right: 2;
+}
+
+.modal_footer{
+	display: inline-block;
 }
 
 .close {

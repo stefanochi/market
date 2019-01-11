@@ -7,11 +7,14 @@ var Products = (function(){
         //setListeners
         $('#addProduct_button').click(showAddProductForm);
 
-        $('#product_add').click(function(){
+        $('#addProduct_modal .confirm').click(function(){
             addProduct();
             removeAddProductForm();
         });
         $('#addProduct_modal .close').click(function(){
+            removeAddProductForm();
+        });
+        $('#addProduct_modal .cancel').click(function(){
             removeAddProductForm();
         });
 
@@ -82,11 +85,13 @@ var Products = (function(){
     
             $('#productList_div').append(html);
             if(loggedUser.info && loggedUser.info.ID == products[i].ownerID){
-                var button = "<button class='product_delete'>Delete</button><button class='produc_update'>Update</button>";
+                //show delete and update button if the product is sold by the current user
+                $('#' + products[i].ID + ' .product_delete').removeClass('hidden');
+                $('#' + products[i].ID + ' .product_update').removeClass('hidden');
             }else{
-                var button = "<button class='product_addToCart'>Add To Cart</button>";
+                //show to button to add to the cart if another user is watching the product
+                $('#' + products[i].ID + ' .product_addToCart').removeClass('hidden');
             }
-            $("#" + products[i].ID + "> .button_div").append(button);
 
 
             $("#" + products[i].ID).attr('draggable', 'True');

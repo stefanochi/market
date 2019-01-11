@@ -3,8 +3,47 @@ var Cart = (function(){
 
     function init(){
         if(loggedUser.info){
+            setListeners();
             getCartProducts();
         }
+    }
+
+    function setListeners(){
+         //add drag and drop functionality
+         $('#cart_div').on('dragover', function(e){
+            e.preventDefault();
+        });
+        $('#cart_div').on('dragenter', function(e){
+            e.preventDefault();
+        });
+        $('#cart_div').on('drop', function(e){
+            e.preventDefault();
+            var data = e.originalEvent.dataTransfer.getData('product');
+            addProductToCart(data);
+        });
+
+        $('#cart_buy').click(function(){
+            showConfirmationWindow();
+        });
+
+        $('#confirmCheckout_modal .confirm').click(function(){
+            buyCartProducts();
+            hideConfirmationWindow();
+        });
+        $('#confirmCheckout_modal .close').click(function(){
+            hideConfirmationWindow();
+        });
+        $('#confirmCheckout_modal .cancel').click(function(){
+            hideConfirmationWindow();
+        });
+    }
+
+    function showConfirmationWindow(){
+        $('#confirmCheckout_modal').removeClass('hidden');
+    }
+
+    function hideConfirmationWindow(){
+        $('#confirmCheckout_modal').addClass('hidden');
     }
 
     //add a products to the cart given its ID
@@ -37,29 +76,26 @@ var Cart = (function(){
 
     function removeProductsFromCart(productID){
         if(loggedUser.info){
-            if(loggedUser.info){
-                var payload = {
-                    userID: loggedUser.info.ID,
-                    productID: productID
-                }
-                //tries to remove the products the cart,
-                //if it is successful, return the new list of products in the cart
-                $.post('ajax/cart/remove', payload, function(res){
-                    if(res.state == 0){
-                        //if the request was successful, update the cart
-                        cartProducts = res.data;
-                        showCartProducts();
-                    }else{
-                        //show an error to the user
-                        showError(res.message);
-
-                        console.log("Error removing product to cart: " + res.message);
-                    }
-                });
-            }else{
-                //show an error to the user
-                showError("You are nor logged in");
+            var payload = {
+                userID: loggedUser.info.ID,
+                productID: productID
             }
+            //tries to remove the products the cart,
+            //if it is successful, return the new list of products in the cart
+            $.post('ajax/cart/remove', payload, function(res){
+                if(res.state == 0){
+                    //if the request was successful, update the cart
+                    cartProducts = res.data;
+                    showCartProducts();
+                }else{
+                    //show an error to the user
+                    showError(res.message);
+                    console.log("Error removing product to cart: " + res.message);
+                }
+            });
+        }else{
+            //show an error to the user
+            showError("You are nor logged in");
         }
     }
 
@@ -77,23 +113,11 @@ var Cart = (function(){
     }
 
     function showCartProducts(){
-        $('.right').html("");
-        //create a div for the cart
-        $('.right').html("<div id='cart_div'></div>");
-        $('#cart_div').append("<h1>Cart</h1>");
-        $('#cart_div').append("<button id='cart_buy'>Buy Products</button>");
-        //add drag and drop functionality
-        $('#cart_div').on('dragover', function(e){
-            e.preventDefault();
-        });
-        $('#cart_div').on('dragenter', function(e){
-            e.preventDefault();
-        });
-        $('#cart_div').on('drop', function(e){
-            e.preventDefault();
-            var data = e.originalEvent.dataTransfer.getData('product');
-            addProductToCart(data);
-        });
+        //empty the cart div
+        $('#cartList_div').html("");
+        //show the div for the cart
+        $("#cart_div").removeClass('hidden');
+       
         //show all the products in the cart
         if(cartProducts){
 
@@ -105,19 +129,17 @@ var Cart = (function(){
                 var content = cartProducts[i];
                 var html = template(content);
 
-                $('#cart_div').append(html);
+                $('#cartList_div').append(html);
             }
         }
 
-        //set listeners
+        //set listeners for the products in the cart
         $('.cartProduct_remove').click(function(e){
             var productID = $(e.target).parent().attr('id').split('_')[1];
             removeProductsFromCart(productID);
         });
 
-        $('#cart_buy').click(function(){
-            buyCartProducts();
-        });
+        
     }
 
     function deleteCartProducts(){

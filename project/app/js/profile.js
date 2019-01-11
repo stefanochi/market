@@ -77,8 +77,11 @@ var Profile = (function(){
         $('#editProfile_modal .close').click(function(){
             removeEditProfileForm();
         });
+        $('#editProfile_modal .cancel').click(function(){
+            removeEditProfileForm();
+        });
         //listener for save
-        $('#editProfile_form').submit(function(e){
+        $('#editProfile_save').click(function(e){
             e.preventDefault();
 
             var username = $('#editProfile_username').val();
