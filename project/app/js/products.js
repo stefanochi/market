@@ -18,6 +18,21 @@ var Products = (function(){
             removeAddProductForm();
         });
 
+        //set listeners for the update window
+        $('#updateProduct_modal .close').click(function(){
+            //hide the window
+            $('#updateProduct_modal').addClass('hidden');
+        });
+        $('#updateProduct_modal .cancel').click(function(){
+            //hide the window
+            $('#updateProduct_modal').addClass('hidden');
+        });
+        $('#updateProduct_modal .confirm').click(function(){
+            //send requet to the server to update the product
+            updateProduct();
+        });
+
+
         loadProductsByUserID(requestedID);
     }
 
@@ -106,8 +121,15 @@ var Products = (function(){
     }
     
     function setListenersProducts(){
-        $('.product_delete').click(buttonDelete);
-        //$('.product_update').click(updateProduct);
+        $('.product_delete').click(function(e){
+            var productID = $(e.target).parent().parent().attr('id');
+            showDeleteConfirmation(productID);
+        });
+        $('.product_update').click(function(e){
+            //pass the id of the product to update to the function
+            var productID = $(e.target).parent().parent().attr('id');
+            showUpdateProductForm(productID);
+        });
 
         $('.product_addToCart').click(function(e){
             var productID = $(e.target).parent().parent().attr('id');
@@ -125,9 +147,38 @@ var Products = (function(){
             loadProductsBySearch(arguments);
         });
     }
+
+    function showDeleteConfirmation(productID){
+        //attach the product id to the element to know which element to delete
+        $("#confirmDelete_modal").data("productID", productID);
+        //show the confirmation window
+        $('#confirmDelete_modal').removeClass('hidden');
+
+        //remove previous handlers and set again the handler form the confirmation window
+        $('#confirmDelete_modal .confirm').off();
+        $('#confirmDelete_modal .close').off();
+        $('#confirmDelete_modal .cancel').off();
+
+        $('#confirmDelete_modal .confirm').click(function(){
+            var productID = $('#confirmDelete_modal').data().productID;
+            deletProduct(productID);
+            hideDeleteConfirmation();
+        });
+
+        $('#confirmDelete_modal .cancel').click(function(){
+            hideDeleteConfirmation();
+        });
+        $('#confirmDelete_modal .close').click(function(){
+            hideDeleteConfirmation();
+        });
+    }
+
+    function hideDeleteConfirmation(){
+        $('#confirmDelete_modal').data("productID", null);
+        $('#confirmDelete_modal').addClass('hidden');
+    }
     
-    function buttonDelete(e){
-        var productID = $(e.target).parent().parent().attr('id');
+    function deletProduct(productID){
         $.post('/project/ajax/products/delete', {productID: productID}, function(res){
             if(res.state == 0){
                 showMessage("Product removed successfully");
@@ -136,6 +187,62 @@ var Products = (function(){
                 showError("Could not remove the product");
             }
         });   
+    }
+
+    function showUpdateProductForm(productID){
+        //get the current values for the product
+        for(var i=0; i<products.length; i++){
+            if(products[i].ID == productID){
+                var productInfo = products[i];
+            }
+        }
+        //show the update window
+        $('#updateProduct_modal').removeClass('hidden');
+        
+        //set the values in the window
+        
+        $("#updateProduct_id").val(productInfo.ID); //store the id of the product inside an hidden element
+        $("#updateProduct_title").val(productInfo.title);
+        $("#updateProduct_price").val(productInfo.price);
+        $("#updateProduct_description").val(productInfo.description);
+        $("#updateProduct_image").val(productInfo.image);
+        if(productInfo.sold){
+            $('#updateProduct_sold[value=sold]').attr("checked", true);
+        }else{
+            $('#updateProduct_sold[value=available]').attr("checked", true);
+        }
+    }
+
+    function updateProduct(){
+        //get the new values
+        var ID = $("#updateProduct_id").val();
+        var title = $("#updateProduct_title").val();
+        var price = $("#updateProduct_price").val();
+        var description = $("#updateProduct_description").val();
+        var image = $("#updateProduct_image").val();
+        var sold = $('#updateProduct_sold[value=sold]').prop('checked') ? 1 : 0;
+
+        var payload = {
+            ID: ID,
+            title: title,
+            description: description,
+            image: image,
+            price: price,
+            sold: sold
+        }
+
+        //send request to the server
+        $.post('ajax/products/update', payload, function(res){
+            if(res.state == 0){
+                showMessage("Product updated successfully");
+            }else{
+                showError(res.message);
+            }
+        });
+
+        //close the window
+        $('#updateProduct_modal').addClass('hidden');
+
     }
     
     function showAddProductForm(){

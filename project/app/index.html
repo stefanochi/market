@@ -36,26 +36,127 @@
             <span id="alert_text">This is a message</span>
         </div>
         <div class="content">
+            <!-- this div contains the modal windows -->
+            <div>
+
+                <!-- window to add a new product -->
+                <div id="addProduct_modal" class="hidden modal">
+                    <div class="addProduct_div modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h1>Add new product</h1>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" id="product_title" placeholder="Title">
+                            <input type="number" id="product_price" placeholder="Price">
+                            <input type="text" id="product_description" placeholder="Description">
+                            <input type="url" id="product_image" placeholder="Image Url">
+                            <div class="modal-buttons">
+                                <button class="confirm primary_button float_right">Add Product</button>
+                                <button class="cancel secondary_button float_right">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- cart checkout confirmation -->
+                <div id="confirmCheckout_modal" class="modal hidden">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h1>Confirmation</h1>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure?</p>
+                            <div class="modal-buttons">
+                                <button class="confirm primary_button float_right">Checkout</button>
+                                <button class="cancel secondary_button float_right">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- edit profile window -->
+                <div id="editProfile_modal" class="modal hidden">
+                    <div class="editProfile_div modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h1>Edit Profile</h1>
+                        </div>
+                        <div id="editProfile_form" class="modal-body">
+                            <input id="editProfile_username" type="text" placeholder="Username">
+                            <input id="editProfile_email" type="email" placeholder="Email">
+                            <input id="editProfile_image" type="url" placeholder="Profile Picture url">
+                            <div class="modal-buttons">
+                                <button id="editProfile_save" class=" confirm primary_button float_right">Save</button>
+                                <button class="cancel secondary_button float_right">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- window to update a product -->
+                <div id="updateProduct_modal" class="hidden modal">
+                    <div class="updateProduct_div modal-content">
+                            <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h1>Update Product</h1>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" id="updateProduct_id" class="hidden">
+                            <input type="text" id="updateProduct_title" placeholder="Title">
+                            <input type="number" id="updateProduct_price" placeholder="Price">
+                            <input type="text" id="updateProduct_description" placeholder="Description">
+                            <input type="url" id="updateProduct_image" placeholder="Image Url">
+                            <input type="radio" id="updateProduct_sold" name="sold" value="sold">Sold
+                            <input type="radio" id="updateProduct_sold" name="sold" value="available">Available
+                            <div class="modal-buttons">
+                                <button class="confirm primary_button float_right">Update Product</button>
+                                <button class="cancel secondary_button float_right">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- window to confirm deletion -->
+                <div id="confirmDelete_modal" class="modal hidden">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h1>Confirmation</h1>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete the product?</p>
+                            <div class="modal-buttons">
+                                <button class="confirm primary_button float_right">Delete</button>
+                                <button class="cancel secondary_button float_right">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- window to add review -->
+                <div id="addReview_modal" class="hidden modal">
+                    <div class="addReview_div modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h1>Add new review</h1>
+                        </div>
+                        <!-- form to add review -->
+                        <form id="addReview_form" class="modal-body">
+                            <input id="addReview_text" type='text' placeholder="text">
+                            <input id="addReview_rating" type="number" placeholder="rating">
+                            <input id="addReview_submit" class="primary_button" type="submit" value="Send">
+                        </form>
+                    </div>
+                </div>
+            </div>
             <!--this div will contain the content of the page-->
             <div class="column cl-1"><div class="left"></div></div>
             <div class="column cl-2"><div class="main"></div></div>
             <div class="column cl-3"><div class="right">
                 <div id="cart_div" class="hidden">
-                    <div id="confirmCheckout_modal" class="modal hidden">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span class="close">&times;</span>
-                                <h1>Confirmation</h1>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure?</p>
-                                <div class="modal-buttons">
-                                    <button class="confirm primary_button float_right">Checkout</button>
-                                    <button class="cancel secondary_button float_right">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="header_div">
                         <h1>Cart</h1>
                         <button id="cart_buy" class="primary_button">Checkout</button>
@@ -72,23 +173,6 @@
                 <div id="info_div" class="section_main">
                     <!-- when clicked it shows a windows to edit the profile -->
                     <span id="editProfile_button" class="hidden">Edit</span>
-                    <div id="editProfile_modal" class="modal hidden">
-                        <div class="editProfile_div modal-content">
-                            <div class="modal-header">
-                                <span class="close">&times;</span>
-                                <h1>Edit Profile</h1>
-                            </div>
-                            <div id="editProfile_form" class="modal-body">
-                                <input id="editProfile_username" type="text" placeholder="Username">
-                                <input id="editProfile_email" type="email" placeholder="Email">
-                                <input id="editProfile_image" type="url" placeholder="Profile Picture url">
-                                <div class="modal-buttons">
-                                    <button id="editProfile_save" class=" confirm primary_button float_right">Save</button>
-                                    <button class="cancel secondary_button float_right">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <img src={{image}}>
                     <h1>{{username}}</h1>
                     <h2>Email: {{email}}</h2>
@@ -98,26 +182,7 @@
                 <div id="products_div" class="section_main">
                     <h1>Products sold by the user</h1>
                     <!-- button to show the form to add a new product -->
-                    <button id='addProduct_button' class='primary_button hidden'>Add Product</button>
-                    <!-- window to add a new product -->
-                    <div id="addProduct_modal" class="hidden modal">
-                            <div class="addProduct_div modal-content">
-                                <div class="modal-header">
-                                    <span class="close">&times;</span>
-                                    <h1>Add new product</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <input type="text" id="product_title" placeholder="Title">
-                                    <input type="number" id="product_price" placeholder="Price">
-                                    <input type="text" id="product_description" placeholder="Description">
-                                    <input type="url" id="product_image" placeholder="Image Url">
-                                    <div class="modal-buttons">
-                                        <button class="confirm primary_button float_right">Add Product</button>
-                                        <button class="cancel secondary_button float_right">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <button id='addProduct_button' class='primary_button hidden'>Add Product</button>    
                     <div id="productList_div">
                         <!-- list of selling products -->
                     </div>
@@ -126,20 +191,7 @@
                     <h1>Reviews of the user</h1>
                     <!-- button to show the form to add a new product -->
                     <button id='addReview_button' class='primary_button hidden'>Leave Review</button>
-                    <div id="addReview_modal" class="hidden modal">
-                        <div class="addReview_div modal-content">
-                            <div class="modal-header">
-                                <span class="close">&times;</span>
-                                <h1>Add new review</h1>
-                            </div>
-                            <!-- form to add review -->
-                            <form id="addReview_form" class="modal-body">
-                                <input id="addReview_text" type='text' placeholder="text">
-                                <input id="addReview_rating" type="number" placeholder="rating">
-                                <input id="addReview_submit" class="primary_button" type="submit" value="Send">
-                            </form>
-                        </div>
-                    </div>
+                    
                     <div id="reviewList_div">
                         <!-- listo of reviews -->
                     </div>

@@ -29,7 +29,6 @@ class ProductController{
                 $_POST['ID'],
                 $_POST['title'],
                 $_POST['price'],
-                $_POST['ownerID'],
                 $_POST['description'],
                 $_POST['image'],
                 $_POST['sold']);

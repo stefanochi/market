@@ -58,28 +58,41 @@ class ProductModel{
         return $result;
     }
 
-    public function updateProduct($id, $title, $price, $ownerID, $description, $image, $sold){
+    public function updateProduct($id, $title, $price, $description, $image, $sold){
         //check if the information is valid
         if($title == ""){
-            throw new Exception("updateProduct(): title can't be ampty");
+            throw new Exception("title can't be ampty");
         }
         if(strlen($title) > 128){
-            throw new Exception("updateProduct(): title too long");
+            throw new Exception("title too long");
         }
         if($price < 0){
-            throw new Exception("updaeProduct(): price can't be less than zero");
+            throw new Exception("price value not valid");
+        }
+        if($description != NULL && strlen($description) > 1024){
+            throw new Exception("Description too long");
+        }
+        if($imagen != NULL && strlen($image) > 1024){
+            throw new Exception("Image url too long");
         }
 
         //query execution
         $stmt = $this->db->prepare(
             'UPDATE Products
-             SET title=?, price=?, description=?, image=?
-             WHERE ID = ?'
+             SET title=:title, price=:price, description=:description, image=:image, sold=:sold
+             WHERE ID = :ID'
         );
-        $res = $stmt->execute([$title, $price, $description, $image, $id]);
+        $stmt->bindValue(':title', $title);
+        $stmt->bindValue(':price', $price, PDO::PARAM_INT);
+        $stmt->bindValue(':description', $description);
+        $stmt->bindValue(':image', $image);
+        $stmt->bindValue(':sold', (bool)$sold, PDO::PARAM_BOOL);
+        $stmt->bindValue(':ID', $id);
+        $res = $stmt->execute();
+        
         //throws an exception if insertion fails
         if(!$res){
-            throw new Exception("updateProduct(): error updating product " . $this->db->errorInfo()[0]);
+            throw new Exception("error updating product");
         }
     }
     
