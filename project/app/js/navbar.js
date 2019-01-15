@@ -1,5 +1,9 @@
 var Navbar = (function(){
     function init(){
+
+        if(loggedUser.info){
+            $('#logout_button').html("Logout");
+        }
         //setup navbar listeners
         $('#logout_button').click(function(){
             logout();
@@ -18,6 +22,8 @@ var Navbar = (function(){
         Cart.deleteCartProducts();
         Cart.hideCart();
         Router.navigate('#login');
+
+        $("#logout_button").html("Log In");
     }
 
     return{

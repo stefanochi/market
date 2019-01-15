@@ -10,7 +10,10 @@ var Cart = (function(){
 
     function setListeners(){
          //add drag and drop functionality
-         $('#cart_div').on('dragover', function(e){
+        $('#cart_div *').off();
+        $('#confirmCheckout_modal *').off();
+
+        $('#cart_div').on('dragover', function(e){
             e.preventDefault();
         });
         $('#cart_div').on('dragenter', function(e){

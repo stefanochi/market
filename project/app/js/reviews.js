@@ -20,6 +20,8 @@ var Review = (function(){
         $('#addReview_button').click(function(){
             showAddReviewForm();
         });
+
+        $("#addReview_modal *").off();
         //listener for closing the new review window
         $('#addReview_modal .close').click(function(){
             removeAddReviewForm();

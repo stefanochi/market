@@ -51,7 +51,10 @@ var Login = (function(){
                 //if the login is successful go to user page
                 console.log("login successful");
                 loggedUser.info = res.data;
+                Cart.init();
                 Router.navigate('#profile/' + res.data.ID);
+
+                $("#logout_button").html("Logout");
             }else{
                 showError("Wrong combination of name and password");
             }
@@ -109,7 +112,10 @@ var Login = (function(){
                 //if the login is successful go to user page
                 console.log("signup successful");
                 loggedUser.info = res.data;
+                Cart.init();
                 Router.navigate('#profile/' + res.data.ID);
+
+                $("#logout_button").html("Logout");
             }else{
                 showError(data.message);
             }

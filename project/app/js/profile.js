@@ -17,7 +17,7 @@ var Profile = (function(){
             }
         }else{
             //the user requested a specific profile
-            Cart.init();
+            //Cart.init();
             profileID = requestedProfile;
             loadProfile(function(){
                 showProfile();
@@ -73,6 +73,9 @@ var Profile = (function(){
         $('#editProfile_button').click(function(){
             showEditProfileForm();
         });
+
+        $('#editProfile_modal *').off();
+
         //listener for closing the new review window
         $('#editProfile_modal .close').click(function(){
             removeEditProfileForm();

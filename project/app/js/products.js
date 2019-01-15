@@ -7,6 +7,9 @@ var Products = (function(){
         //setListeners
         $('#addProduct_button').click(showAddProductForm);
 
+        $("#addProduct_modal *").off();
+        $("#updateProduct_modal *").off();
+
         $('#addProduct_modal .confirm').click(function(){
             addProduct();
             removeAddProductForm();
