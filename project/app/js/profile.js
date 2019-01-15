@@ -61,6 +61,9 @@ var Profile = (function(){
         var html = template(context);
         $('.main').html(html);
 
+        //hide the advanced search div
+        $('#advancedSearch_div').addClass('hidden');
+
         if(loggedUser.info && profileID == loggedUser.info.ID){
             enableEditProfile();
         }

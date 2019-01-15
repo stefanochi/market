@@ -69,6 +69,10 @@ var Products = (function(){
         var template = Handlebars.compile(source);
         var html = template();
         $('.main').html(html);
+
+        //show the advanced search div
+        $('#advancedSearch_div').removeClass('hidden');
+
         //request to the server
 
         var payload = {

@@ -19,6 +19,9 @@ var Login = (function(){
         var context = {Login: "test login"};
         var html = template(context);
         $('.main').html(html);
+
+        //hide the advanced search div
+        $('#advancedSearch_div').addClass('hidden');
     
         setLoginListeners();
     }
@@ -83,6 +86,9 @@ var Login = (function(){
         var context = {Login: "test signup"};
         var html = template(context);
         $('.main').html(html);
+
+        //hide the advanced search div
+        $('#advancedSearch_div').addClass('hidden');
     
         setSignupListeners();
     }

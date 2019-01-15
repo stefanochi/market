@@ -13,8 +13,21 @@ button{
 	font-size: 14px;
 	height: 32px;
 }
+
+input{
+	background-color: #10171e;
+    border-radius: 21px;
+    border: 1px solid #38444d;
+    color: #fff;
+    padding: 10px;
+}
+input:focus{
+	border-color: #1da1f2;
+	outline: 0;
+}
+
 a{
-	color: #1DA1F2;
+	color: #192530;
 	text-decoration: none;
 }
 a:hover{
@@ -23,9 +36,9 @@ a:hover{
 .primary_button{
 	border-radius: 100px;
 	box-shadow: none;
-	background-color: #15202b;
+	background-color: #1da1f2;
 	border: 1px solid #1da1f2;
-	color: #1da1f2;
+	color: #ffff;
 	padding: 4px 12px;
 	text-align: center;
 	cursor: pointer;
@@ -34,7 +47,7 @@ a:hover{
 .secondary_button{
 	border-radius: 100px;
     box-shadow: none;
-    background-color: white;
+    background-color: #15202b;
     border: 1px solid #1da1f2;
     color: #1da1f2;
     font-size: 12px;
@@ -61,56 +74,81 @@ button:focus{
   	width: 100%;
   	height: 50px;
   	font-size: 0;
-  	display: flex;
-  	flex-direction: row;
 }
 
-.navbar div{
+.nav-left, .nav-right, .nav-center{
+	display: inline-block;
+	/* margin-top: auto; */
+	/* margin-bottom: auto; */
+}
+
+.navbar_content{
+	width: 1199;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
 	height: 100%;
-	padding: 12px;
+}
+
+.nav-center{
+	height: 100%;
+	width: 60%;
+	float: left;
+}
+.nav-right{
+	height: 100%;
+	width: 25%;
+	float: right;
 }
 
 .nav_links{
-	width:  26%;
-	font-size: initial;
-	display: inline;
+	width:  50%;
+	display: inline-block;
+	text-align: center;
+	height: 100%;
+	overflow: hidden;
 }
 
 .nav_links a{
-	padding: 14px;
-	color: #8899a6; 
+	color: #8899a6;
 	font-size: 20px;
 	font-weight: bold;
 	border-bottom-color: #1da1f2;
 	border-bottom-width: 2px;
-	border-bottom-style: hidden; 
+	border-bottom-style: hidden;
 	text-decoration: none;
+	height: 100%;
+	display: inline-block;
+	padding: 13px;
 }
 
 .nav_links a:hover{
 	border-bottom-style: solid; 
+	color: #1da1f2;
 }
 
 .nav_search{
-	width: 50%;
+	width: 100%;
+	heught: 100%;
 	text-align: center;
+	display: inline-block;
+	overflow: hidden;
+	padding: 10px;
 }
 
 .nav_buttons{
-	width: 25%;
+	height: 100%;
+	width: 50%;
 	display: inline-block;
+	padding: 7px
 }
 
 #search_input{
 	background-color: #182430;
-    border-radius: 21px;
-    border: 1px solid #38444d;
-    color: #fff;
     font-size: 12px;
     height: 32px;
     line-height: 16px;
     padding: 8px 32px 8px 12px;
-    transition: all .2s ease-in-out;
     width: 70%;
     margin-right: 10px;
 }
@@ -156,16 +194,12 @@ button:focus{
 
 .column{
 	display: inline-block;
-	height: 100%;
 	padding: 5px;
 }
 
 .cl-1{
 	width: 25%;
 	float: left;
-	padding: 0;
-	border-style: none;
-	border-color: none;
 }
 .cl-2{
 	width: 50%;
@@ -176,13 +210,6 @@ button:focus{
 	width: 25%;
 	float: right;
 	height: initial;
-}
-
-.left, .right{
-	background-color: #192530;
-	border-color: #56626d;
-	border-style: solid;
-	border-width: 1px;
 }
 
 
@@ -322,13 +349,25 @@ button:focus{
 #cart_buy{
 	float: right
 }
+
+#advancedSearch_form{
+	padding: 5px;
+}
+
+#advancedSearch_form input{
+	width: 100%;
+	margin-bottom: 10px;
+	border-radius: 21px;
+	height: 32px;
+	padding-left: 10px;
+
+}
 .float_right{
 	float: right;
 }
 img{
 	max-width: 100%;
 	height: auto;
-	/* text-align: center; */
 	margin:  auto;
 	display: block;
 }
@@ -346,7 +385,7 @@ img{
 }
 
 .modal-content{
-	background-color: #fefefe;
+	background-color: #182430;
   	margin: 15% auto; /* 15% from the top and centered */
   	border: 1px solid #888;
   	width: 40%; /* Could be more or less, depending on screen size */
@@ -357,11 +396,7 @@ img{
 	display: block;
 	width: 100%;
 	margin-bottom: 10px;
-	padding: 10px;
-	border-radius: 10px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: gray;
+	background-color: #10171e;
 }
 
 .modal-body{
@@ -405,8 +440,11 @@ img{
 	.content{
 		width: 767px;
 	}
+	.navbar_content{
+		width: 767px;
+	}
 	.cl-1{
-		display: none;
+		width: 70%;
 	}
 	.cl-2{
 		width: 70%;
@@ -430,6 +468,15 @@ img{
 		font-size: 11px;
 		height: 28px;
 	}
+	.navbar_content{
+		width: 100%;
+	}
+	.nav-center{
+		width: 100%;
+	}
+	.nav-right{
+		display: none;
+	}
 	.content{
 		width:100%;
 	}
@@ -441,14 +488,5 @@ img{
 	}
 	.cl-3{
 		display: none;
-	}
-	.nav_links{
-		display: none;
-	}
-	.nav_buttons{
-		display: none;
-	}
-	.nav_search{
-		width: 100%;
 	}
 }	

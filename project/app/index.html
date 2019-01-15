@@ -20,23 +20,29 @@
     </head>
     <body>
         <div class="navbar">
-            <div class="nav_links">
-                <a href="#profile/">Profile</a>
-            </div>
-            <div class="nav_search">
-                <input id="search_input" placeholder="Search">
-                <button id="search_submit" class="navbar_button primary_button">Search</button>
-            </div>
-            <div class="nav_buttons">
-                <button id="logout_button" class="navbar_button primary_button float_right">Log In</button>
-            </div>
+            <div class="navbar_content"><!--
+            --><div class="nav-left"></div><!--
+            --><div class="nav-center"><!--
+                --><div class="nav_search">
+                        <input id="search_input" placeholder="Search">
+                        <button id="search_submit" class="navbar_button primary_button">Search</button>
+                    </div><!--
+            --></div><!--
+            --><div class="nav-right"><!--
+                --><div class="nav_links">
+                        <a href="#profile/">Profile</a>
+                    </div><!--
+                --><div class="nav_buttons">
+                        <button id="logout_button" class="navbar_button secondary_button float_right">Log In</button>
+                    </div><!--
+            --></div><!--
+        --></div>
         </div>
         <div class="alert_div hidden">
             <span id="alert_text">This is a message</span>
         </div>
-        <div class="content">
-            <!-- this div contains the modal windows -->
-            <div>
+        <!-- this div contains the modal windows -->
+        <div>
 
                 <!-- window to add a new product -->
                 <div id="addProduct_modal" class="hidden modal">
@@ -145,16 +151,35 @@
                         <form id="addReview_form" class="modal-body">
                             <input id="addReview_text" type='text' placeholder="text">
                             <input id="addReview_rating" type="number" placeholder="rating">
-                            <input id="addReview_submit" class="primary_button" type="submit" value="Send">
+                            <div class="modal-buttons">
+                                <input id="addReview_submit" class="primary_button float_right" type="submit" value="Send">
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
+        <div class="content">
             <!--this div will contain the content of the page-->
-            <div class="column cl-1"><div class="left"></div></div>
+            <div class="column cl-1"><div class="left">
+                    <div id="advancedSearch_div" class="section_main hidden">
+                        <div class="header_div">
+                            <h1>Advanced Search</h1>
+                        </div>
+                        <form id="advancedSearch_form" class="advancedSearch_div">
+                            <input id="advancedSearch_minPrice" type="number" placeholder="minimum price" value="null">
+                            <input id="advancedSearch_maxPrice" type="number" placeholder="maximum price" value="null">
+                            <select id="advancedSearch_order">
+                                <option value="descending">Descending</option>
+                                <option value="ascending"  selected="selected">Ascending</option>
+                            </select>
+                            <input class="primary_button" type="submit" value="Search">
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div class="column cl-2"><div class="main"></div></div>
             <div class="column cl-3"><div class="right">
-                <div id="cart_div" class="hidden">
+                <div id="cart_div" class="section_main hidden">
                     
                     <div class="header_div">
                         <h1>Cart</h1>
@@ -195,10 +220,8 @@
                 <div id="reviews_div" class="section_main">
                     <div class="header_div">
                         <h1>Reviews of the user</h1>
-                    </div>
-                    <div class="action_div">
                         <!-- button to show the form to add a new product -->
-                        <button id='addReview_button' class='primary_button hidden'>Leave Review</button>
+                        <button id='addReview_button' class='primary_button hidden float_right'>Leave Review</button>
                     </div>
                     <div id="reviewList_div" class="section_content">
                         <!-- listo of reviews -->
@@ -211,15 +234,6 @@
                     <div class="header_div">
                         <h1>Products found</h1>
                     </div>
-                    <form id="advancedSearch_form" class="advancedSearch_div">
-                        <input id="advancedSearch_minPrice" type="number" placeholder="minimum price" value="null">
-                        <input id="advancedSearch_maxPrice" type="number" placeholder="maximum price" value="null">
-                        <select id="advancedSearch_order">
-                            <option value="descending">Descending</option>
-                            <option value="ascending"  selected="selected">Ascending</option>
-                        </select>
-                        <input class="primary_button" type="submit" value="Search">
-                    </form>
                     <div id="productList_div" class="section_content">
                         <!-- list of selling products -->
                     </div>
@@ -271,7 +285,7 @@
                     <img src={{image}}>
                     <p class="product_description">{{description}}</p>
                     <div class="button_div float_right">
-                            <button class='product_delete primary_button hidden'>Delete</button>
+                            <button class='product_delete secondary_button hidden'>Delete</button>
                             <button class='product_update primary_button hidden'>Update</button>
                             <button class='product_addToCart primary_button hidden'>Add To Cart</button>
                     </div>
@@ -285,7 +299,7 @@
                         by <a href="#profile/{{ownerID}}">{{ownerName}}</a>
                     </div>     
                     <h2 class="cartProduct_price">{{price}}</h2>
-                    <button class="cartProduct_remove primary_button float_right">Remove</button> 
+                    <button class="cartProduct_remove secondary_button float_right">Remove</button> 
                 </div>
             </script>
 
@@ -295,7 +309,7 @@
                     <a href="#profile/{{writerID}}"><h2>{{writerUsername}}</h2></a>
                     <p>{{text}}</p>
                     <p>{{pub_date}}</p>
-                    <button class="primary_button remove_review hidden">Remove</button>
+                    <button class="secondary_button remove_review hidden">Remove</button>
                 </div>
             </script>
 
