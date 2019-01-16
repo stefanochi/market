@@ -92,6 +92,7 @@
                             <input id="editProfile_username" type="text" placeholder="Username">
                             <input id="editProfile_email" type="email" placeholder="Email">
                             <input id="editProfile_image" type="url" placeholder="Profile Picture url">
+                            <input id="editProfile_info" type="text" placeholder="Description">
                             <div class="modal-buttons">
                                 <button id="editProfile_save" class=" confirm primary_button float_right">Save</button>
                                 <button class="cancel secondary_button float_right">Cancel</button>
@@ -163,7 +164,7 @@
             <div class="column cl-1"><div class="left">
                     <div id="advancedSearch_div" class="section_main hidden">
                         <div class="header_div">
-                            <h1>Advanced Search</h1>
+                            <h1>Refine Search</h1>
                         </div>
                         <form id="advancedSearch_form" class="advancedSearch_div">
                             <input id="advancedSearch_minPrice" type="number" placeholder="minimum price" value="null">
@@ -272,15 +273,19 @@
             
             <script id="product_template" type="text/x-handlebars-template">
                 <div class="product_div" id={{ID}}>
-                    <div class="title_div">
-                        <h1 class="product_title">{{title}}</h1>
-                        <h2>&nbspby <a href="#profile/{{ownerID}}" class="product_owner">{{ownerName}}</a></h2>
-                        <span class="product_sold">
-                            {{#if sold}}
-                                Sold 
-                            {{/if}}
-                        </span>
-                        <h1 class="product_price">{{price}}</h1>
+                    <div class="product_header">
+                        <div class="title_div">
+                            <h1 class="product_title">{{title}}</h1>
+                            <h2>&nbspby <a href="#profile/{{ownerID}}" class="product_owner">{{ownerName}}</a></h2>
+                            <span class="product_sold">
+                                {{#if sold}}
+                                    Sold 
+                                {{/if}}
+                            </span>
+                        </div>
+                        <div class="price_div float_right">
+                            <h1 class="product_price">{{price}}$</h1>
+                        </div>
                     </div>
                     <img src={{image}}>
                     <p class="product_description">{{description}}</p>
@@ -305,11 +310,16 @@
 
             <script id="review_template" type="text/x-handlebars-template">
                 <div id="review_{{writerID}}" class="review_div">
-                    <h2>{{rating}}</h2>
-                    <a href="#profile/{{writerID}}"><h2>{{writerUsername}}</h2></a>
-                    <p>{{text}}</p>
-                    <p>{{pub_date}}</p>
-                    <button class="secondary_button remove_review hidden">Remove</button>
+                    <div class="column-left">
+                        <img src="{{writer_image}}">
+                    </div>
+                    <div class="review_content">
+                        <a href="#profile/{{writerID}}"><h2>{{writerUsername}}:</h2></a>
+                        <h2>Rating: {{rating}}</h2>
+                        <p>Text: {{text}}</p>
+                        <p class="review_date">{{pub_date}}</p>
+                        <button class="secondary_button remove_review hidden">Remove</button>
+                    </div>
                 </div>
             </script>
 

@@ -13,7 +13,7 @@ class UserModel{
     }
 
     //edit the information of an existing user
-    public function editUser($userID, $username, $email, $image){
+    public function editUser($userID, $username, $email, $image, $info){
         //update the username
         if($username != NULL){
             $stmt = $this->db->prepare(
@@ -48,6 +48,18 @@ class UserModel{
             $res |= $stmt->execute([$image, $userID]);
             if(!$res){
                 throw new Exception("error updating image");
+            }
+        }
+        //update info
+        if($info != NULL){
+            $stmt = $this->db->prepare(
+                'UPDATE Users
+                 SET info = :info
+                 WHERE ID = :ID'
+            );
+            $res |= $stmt->execute([":info" => $info, ":ID" => $userID]);
+            if(!$res){
+                throw new Exception("error updating info");
             }
         }
 

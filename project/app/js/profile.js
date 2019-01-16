@@ -93,8 +93,9 @@ var Profile = (function(){
             var username = $('#editProfile_username').val();
             var email = $('#editProfile_email').val();
             var image = $('#editProfile_image').val();
+            var info = $('#editProfile_info').val();
 
-            updateProfileInfo(username, email, image);
+            updateProfileInfo(username, email, image, info);
 
             removeEditProfileForm();
         })
@@ -107,18 +108,20 @@ var Profile = (function(){
         $('#editProfile_username').val("");
         $('#editProfile_email').val("");
         $('#editProfile_image').val("");
+        $('#editProfile_info').val("");
     }
 
     function removeEditProfileForm(){
         $('#editProfile_modal').addClass('hidden');
     }
 
-    function updateProfileInfo(username, email, image){
+    function updateProfileInfo(username, email, image, info){
         var payload = {
             userID: loggedUser.info.ID,
             username: username,
             email: email,
-            image: image
+            image: image,
+            info: info
         }
         $.post('ajax/profile/update', payload, function(res){
             if(res.state == 0){

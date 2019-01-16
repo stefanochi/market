@@ -23,7 +23,8 @@ class ProfileController{
                 $_POST['userID'],
                 $_POST['username'],
                 $_POST['email'],
-                $_POST['image']
+                $_POST['image'],
+                $_POST['info']
             );
 
             return new Response(0, "Successfully updated profile", $profile);

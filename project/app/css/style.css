@@ -27,7 +27,7 @@ input:focus{
 }
 
 a{
-	color: #192530;
+	color: #1da1f2;
 	text-decoration: none;
 }
 a:hover{
@@ -276,27 +276,25 @@ button:focus{
 	overflow: hidden;
 	padding-bottom: 5px;
 }
+
+.product_div img{
+	border-radius: 10px;
+}
 .product_div .button_div{
 	display: block;
 }
-
-.title_div *{
+.product_header{
+	display: block;
+	width: 100%;
+	overflow: hidden;
+}
+.title_div{
 	display: inline-block;
+	width: 70%;
 }
 
-.title_div h1{
-	/* font-size: 3vw; */
-}
-
-.title_div h2{
-	/* font-size: 1.5vw; */
-}
-.title_div .product_price{
-	float: right;
-	/* font-size: 3vw; */
-	margin-bottom: 0;
-	margin-top: 20px;
-	margin-right: 40px;
+.title_div h1, .title_div h2{
+	display: inline;
 }
 
 .title_div .product_sold{
@@ -305,6 +303,22 @@ button:focus{
 	color: gray;
 }
 
+.review_div .column-left{
+	width: 10%;
+	float: left;
+	display: block;
+	padding-top: 20px;
+}
+.review_content{
+	display: block;
+	width: 90%;
+	overflow: hidden;
+	padding-left: 20px;
+}
+
+.review_div img{
+	border-radius: 100px;
+}
 
 #cart_div{
 	min-height: 300px;
@@ -362,6 +376,7 @@ button:focus{
 	padding-left: 10px;
 
 }
+
 .float_right{
 	float: right;
 }
@@ -444,7 +459,7 @@ img{
 		width: 767px;
 	}
 	.cl-1{
-		width: 70%;
+		display: none;
 	}
 	.cl-2{
 		width: 70%;

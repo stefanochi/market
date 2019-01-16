@@ -49,10 +49,27 @@ var showError = function(message){
    }, 5000);
 }
 
+function resizeHandler(){
+   
+   if($(window).width() < 767){
+      $('.left').prependTo('.cl-2');
+      $('.right').appendTo('.cl-2');
+   }else if($(window).width() < 1200){
+      $('.left').prependTo('.cl-2');
+      $('.right').appendTo('.cl-3');
+   }else{
+      $('.left').appendTo('.cl-1');
+      $('.right').appendTo('.cl-3');
+   }
+
+}
+
 $('docuemnt').ready(function(){
    loggedUser.init(function(){
       Router.init();
       Navbar.init();
       Cart.init();
    });
+
+   $(window).resize(resizeHandler);
 });
