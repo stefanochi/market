@@ -54,12 +54,25 @@ function resizeHandler(){
    if($(window).width() < 767){
       $('.left').prependTo('.cl-2');
       $('.right').appendTo('.cl-2');
+
+      //sidebar
+      Navbar.hideSideMenu();
+
    }else if($(window).width() < 1200){
+
       $('.left').prependTo('.cl-2');
       $('.right').appendTo('.cl-3');
+
+      //sidebar
+      Navbar.showSideMenu();
+   
    }else{
+      
       $('.left').appendTo('.cl-1');
       $('.right').appendTo('.cl-3');
+
+      //sidebar
+      Navbar.showSideMenu();
    }
 
 }

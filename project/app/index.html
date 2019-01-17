@@ -28,15 +28,19 @@
                         <button id="search_submit" class="navbar_button primary_button">Search</button>
                     </div><!--
             --></div><!--
-            --><div class="nav-right"><!--
-                --><div class="nav_links">
+            --><div class="nav-right">
+                    <span class="close">&times;</span>
+                    <div class="nav_links">
                         <a href="#profile/">Profile</a>
-                    </div><!--
-                --><div class="nav_buttons">
-                        <button id="logout_button" class="navbar_button secondary_button float_right">Log In</button>
-                    </div><!--
-            --></div><!--
-        --></div>
+                        <a href="#login" id="logout_button">Login</a>
+                    </div>
+                </div>
+                <div class="menu-icon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
         </div>
         <div class="alert_div hidden">
             <span id="alert_text">This is a message</span>
@@ -202,7 +206,9 @@
                     <div class="info_content">
                         <!-- when clicked it shows a windows to edit the profile -->
                         <span id="editProfile_button" class="hidden">Edit</span>
-                        <img src={{image}}>
+                        <div class="column-left">
+                            <img src={{image}}>
+                        </div>
                         <h2>Email: {{email}}</h2>
                         <h2>{{rating}}</h2>
                         <p>{{info}}</p>

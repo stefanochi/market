@@ -15,6 +15,27 @@ var Navbar = (function(){
                 Router.navigate("#products/search/" + search);
             }
         });
+
+        $('.nav_links a').click(function(){
+            if($(window).width() < 767){
+                //hide the sidebar after any link is clicked
+                hideSideMenu();
+            }
+        });
+
+        $('.menu-icon').click(function(){
+            showSideMenu();
+        });
+        $('.nav-right .close').click(function(){
+            hideSideMenu();
+        });
+    }
+
+    function showSideMenu(){
+        $(".nav-right").removeClass('hidden');
+    }
+    function hideSideMenu(){
+        $(".nav-right").addClass('hidden');
     }
 
     function logout(){
@@ -27,6 +48,8 @@ var Navbar = (function(){
     }
 
     return{
-        init: init
+        init: init,
+        showSideMenu: showSideMenu,
+        hideSideMenu, hideSideMenu
     }
 }());

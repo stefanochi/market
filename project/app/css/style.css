@@ -33,6 +33,17 @@ a{
 a:hover{
 	text-decoration: underline;
 }
+
+select{
+	border-radius: 21px;
+    background-color: #10171e;
+    color: gray;
+    border-color: #38444d;
+}
+select:focus{
+	outline: 0;
+	border-color: #1da1f2;
+}
 .primary_button{
 	border-radius: 100px;
 	box-shadow: none;
@@ -99,10 +110,14 @@ button:focus{
 	height: 100%;
 	width: 25%;
 	float: right;
+	display: block;
+}
+.nav-right .close{
+	display: none;
 }
 
 .nav_links{
-	width:  50%;
+	/* width:  50%; */
 	display: inline-block;
 	text-align: center;
 	height: 100%;
@@ -117,7 +132,7 @@ button:focus{
 	border-bottom-width: 2px;
 	border-bottom-style: hidden;
 	text-decoration: none;
-	height: 100%;
+	/* height: 100%; */
 	display: inline-block;
 	padding: 13px;
 }
@@ -251,11 +266,17 @@ button:focus{
 	margin: 10px;
 }
 
+.info_content .column-left{
+	width: 35%;
+	float: left;
+	margin-right: 20px;
+}
+
 .info_content img{
 	margin-right: 20px;
 	border-radius: 150px;
-	width: 35%;
-	float: left;
+	/* width: 35%; */
+	/* float: left; */
 }
 
 .section_main{
@@ -374,7 +395,11 @@ button:focus{
 	border-radius: 21px;
 	height: 32px;
 	padding-left: 10px;
-
+}
+#advancedSearch_form select{
+    width: 100%;
+    height: 32px;
+    margin-bottom: 10px;
 }
 
 .float_right{
@@ -450,6 +475,15 @@ img{
 .hidden{
 	display: none !important;
 }
+.menu-icon{
+	display: none;
+}
+.menu-icon div{
+	width: 35px;
+	height: 3px;
+	background-color: #56626d;
+	margin: 6px 0;
+}
 
 @media screen and (max-width: 1200px){
 	.content{
@@ -487,10 +521,29 @@ img{
 		width: 100%;
 	}
 	.nav-center{
-		width: 100%;
+		width: 80%;
 	}
 	.nav-right{
-		display: none;
+		display: block;
+		position: fixed;
+		top: 0;
+		right: 0;
+		z-index: 1;
+		background-color: black;
+		width: 200px;
+	}
+	.nav-right .close{
+		display: inline;
+	}
+	.nav_links a{
+		width: 100%;
+	}
+	.menu-icon{
+		display: inline-block;
+		/* margin:  auto; */
+		height: 100%;
+		padding: 9px;
+		width: 20%;
 	}
 	.content{
 		width:100%;
