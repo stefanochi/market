@@ -21,6 +21,17 @@ input{
     color: #fff;
     padding: 10px;
 }
+
+textarea{
+	background-color: #10171e;
+    border-radius: 21px;
+    border: 1px solid #38444d;
+    color: #fff;
+    padding: 10px;
+    resize: none;
+    min-height: 100px;
+}
+
 input:focus{
 	border-color: #1da1f2;
 	outline: 0;
@@ -432,7 +443,7 @@ img{
   	color: black;
 }
 
-.modal-body > input{
+.modal-body > input, .modal-body > textarea{
 	display: block;
 	width: 100%;
 	margin-bottom: 10px;
@@ -556,5 +567,8 @@ img{
 	}
 	.cl-3{
 		display: none;
+	}
+	.modal-content{
+		width: 100%;
 	}
 }	

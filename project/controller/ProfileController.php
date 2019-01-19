@@ -7,6 +7,8 @@ class ProfileController{
         $this->userModel = new UserModel();
     }
 
+    //POST parameters: userID, username, email, image, info
+    //if the user has the permission, modify the user's information
     public function updateProfile(){
         session_start();
         //check if user is logged in
@@ -17,7 +19,7 @@ class ProfileController{
         if($_POST['userID'] != $_SESSION['ID']){
             return new Response(1, "You don't have the permissions");
         }
-
+        //update information in the database
         try{
             $profile = $this->userModel->editUser(
                 $_POST['userID'],
@@ -33,6 +35,10 @@ class ProfileController{
         }
     }
 
+    //if the request specifies an id with GET returns the information 
+    //about the corresponding user, if it exists
+    //if no id is specified, but the a session is open, returns the information
+    //about the logged user
     public function sendProfile(){
         session_start();
         if(isset($_GET['id'])){
@@ -43,7 +49,7 @@ class ProfileController{
                 return new Response(1, $e->getMessage());
             }
         }
-
+        //no user specified
         if(isset($_SESSION['ID'])){
             try{
                 $user = $this->userModel->getUserByID($_SESSION['ID']);
@@ -52,6 +58,7 @@ class ProfileController{
                 return new Response(1, $e->getMessage());
             }
         }
+        //if no user is specified and no session is open, return error
         return new Response(1, "user id not specified");
     }
 }

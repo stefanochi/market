@@ -59,16 +59,20 @@ var Review = (function(){
                 rating: rating,
                 text: text
             }
-            $.post('ajax/reviews/add', payload, function(res){
-                if(res.state == 0){
-                    reviews = res.data;
-                    showMessage("Review added successfully");
-                    showReviews();
-                }else{
-                    //show an error to the user
-                    showError("Could not add the review");
-                }
-            });
+            if(rating < 0 || rating > 5){
+                showError("Rating must be between 0 and 5");
+            }else{
+                $.post('ajax/reviews/add', payload, function(res){
+                    if(res.state == 0){
+                        reviews = res.data;
+                        showMessage("Review added successfully");
+                        showReviews();
+                    }else{
+                        //show an error to the user
+                        showError("Could not add the review");
+                    }
+                });
+            }
         }
         
     }
@@ -130,7 +134,7 @@ var Review = (function(){
                     $("#review_" + reviews[i].writerID + " .remove_review").click(function(e){
                         //retrive the writerID from the the div id
                         //notice: it should be the same as loggedUser.info.ID
-                        var writerID = $(e.target).parent().attr('id').split('_')[1];
+                        var writerID = $(e.target).parent().parent().attr('id').split('_')[1];
                         removeReview(reviewedID, writerID);
                     });
                 }

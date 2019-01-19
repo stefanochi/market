@@ -59,7 +59,7 @@ var Login = (function(){
 
                 $("#logout_button").html("Logout");
             }else{
-                showError("Wrong combination of name and password");
+                showError(res.message);
             }
         });
     }
@@ -123,7 +123,7 @@ var Login = (function(){
 
                 $("#logout_button").html("Logout");
             }else{
-                showError(data.message);
+                showError(res.message);
             }
         });
     }

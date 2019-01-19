@@ -58,8 +58,8 @@
                         <div class="modal-body">
                             <input type="text" id="product_title" placeholder="Title">
                             <input type="number" id="product_price" placeholder="Price">
-                            <input type="text" id="product_description" placeholder="Description">
                             <input type="url" id="product_image" placeholder="Image Url">
+                            <textarea type="text" id="product_description" placeholder="Description"></textarea>
                             <div class="modal-buttons">
                                 <button class="confirm primary_button float_right">Add Product</button>
                                 <button class="cancel secondary_button float_right">Cancel</button>
@@ -96,7 +96,7 @@
                             <input id="editProfile_username" type="text" placeholder="Username">
                             <input id="editProfile_email" type="email" placeholder="Email">
                             <input id="editProfile_image" type="url" placeholder="Profile Picture url">
-                            <input id="editProfile_info" type="text" placeholder="Description">
+                            <textarea id="editProfile_info" type="text" placeholder="Description"></textarea>
                             <div class="modal-buttons">
                                 <button id="editProfile_save" class=" confirm primary_button float_right">Save</button>
                                 <button class="cancel secondary_button float_right">Cancel</button>
@@ -116,8 +116,8 @@
                             <input type="text" id="updateProduct_id" class="hidden">
                             <input type="text" id="updateProduct_title" placeholder="Title">
                             <input type="number" id="updateProduct_price" placeholder="Price">
-                            <input type="text" id="updateProduct_description" placeholder="Description">
                             <input type="url" id="updateProduct_image" placeholder="Image Url">
+                            <textarea type="text" id="updateProduct_description" placeholder="Description"></textarea>
                             <input type="radio" id="updateProduct_sold" name="sold" value="sold">Sold
                             <input type="radio" id="updateProduct_sold" name="sold" value="available">Available
                             <div class="modal-buttons">
@@ -154,8 +154,8 @@
                         </div>
                         <!-- form to add review -->
                         <form id="addReview_form" class="modal-body">
-                            <input id="addReview_text" type='text' placeholder="text">
                             <input id="addReview_rating" type="number" placeholder="rating">
+                            <textarea id="addReview_text" type='text' placeholder="text"></textarea>
                             <div class="modal-buttons">
                                 <input id="addReview_submit" class="primary_button float_right" type="submit" value="Send">
                             </div>

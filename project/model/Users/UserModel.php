@@ -66,7 +66,15 @@ class UserModel{
         return $this->getUserByID($userID);
     }
 
+    //after checking the validity of the data, adds the new user to the database
+    //with the date of the registration
     public function addUser($username, $password, $email){
+        if($email == "" && !isset($email)){
+            throw new Exception("email can't be empty");
+        }
+        if($username == "" && !isset($username)){
+            throw new Exception("usenrame can't be empty");
+        }
         if($password == "" && !isset($password)){
             throw new Exception("password can't be empty");
         }
@@ -83,6 +91,9 @@ class UserModel{
         
     }
 
+    //checks if exists a user with the combination of usenrame and password specified
+    //if it doesn't throw an exception
+    //if it does return a new instance of User with the information about the user
     public function usernamePasswordExists($username, $password){
         if($username == ""){
             throw new Exception("Username can't be empty");
@@ -188,6 +199,8 @@ class UserModel{
             $user['info']);
     }
 
+    //get the information about the user with the corresponding id
+    //returns an instance of Users containing the information
     public function getUserByID($id){
         $stmt = $this->db->prepare(
             'SELECT *
@@ -216,9 +229,10 @@ class UserModel{
             $user['info']);
     }
 
+    //checks if the passed username is already in use
     public function availableUsername($username){
         if($username == ""){
-            throw new Exception("availableUsername(): Username can't be empty");
+            throw new Exception("Username can't be empty");
         }
         
         $stmt = $this->db->prepare(
@@ -236,9 +250,10 @@ class UserModel{
         return false;
     }
 
+    //checks is the passed email is laredy in use
     public function availableEmail($email){
         if($email == ""){
-            throw new Exception("availableEmail(): Email can't be empty");
+            throw new Exception("Email can't be empty");
         }
         
         $stmt = $this->db->prepare(

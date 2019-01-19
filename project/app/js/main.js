@@ -27,6 +27,7 @@ var loggedUser = {
    }
 }
 
+//show a positive message to the user (green)
 var showMessage = function(message){
    $('#alert_text').html(message);
    $('.alert_div').removeClass('negative');
@@ -38,6 +39,7 @@ var showMessage = function(message){
    }, 5000);
 }
 
+//show an error message to the user (red)
 var showError = function(message){
    $('#alert_text').html(message);
    $('.alert_div').removeClass('positive');
@@ -49,16 +51,17 @@ var showError = function(message){
    }, 5000);
 }
 
+//actions to take when the window is resized
 function resizeHandler(){
    
-   if($(window).width() < 767){
+   if($(window).width() < 767){ //small screeb
       $('.left').prependTo('.cl-2');
       $('.right').appendTo('.cl-2');
 
       //sidebar
       Navbar.hideSideMenu();
-
-   }else if($(window).width() < 1200){
+   
+   }else if($(window).width() < 1200){ //medium screeen
 
       $('.left').prependTo('.cl-2');
       $('.right').appendTo('.cl-3');
@@ -66,7 +69,7 @@ function resizeHandler(){
       //sidebar
       Navbar.showSideMenu();
    
-   }else{
+   }else{ //large screen
       
       $('.left').appendTo('.cl-1');
       $('.right').appendTo('.cl-3');
@@ -84,5 +87,6 @@ $('docuemnt').ready(function(){
       Cart.init();
    });
 
+   //set the listener for resize
    $(window).resize(resizeHandler);
 });

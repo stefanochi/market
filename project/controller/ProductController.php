@@ -10,6 +10,8 @@ class ProductController{
         $this->productModel = new ProductModel();
     }
 
+    //id the user is authenitcated and he is trying to modify one of his own products
+    //update the information with the one passes with POST
     public function updateProduct(){
         session_start();
 
@@ -70,6 +72,8 @@ class ProductController{
         }
     }
 
+    //get a product id by POST
+    //if the user is authenticated remove the product
     public function deleteProduct(){
         session_start();
         //check if the user is logged in
@@ -106,6 +110,7 @@ class ProductController{
         if(!isset($_GET['id'])){
             return new Response(1, "ID not specified");
         }
+        //get products from the database
         try{
             $products = $this->productModel->getAllProductsByUserID($_GET['id']);
 
@@ -115,10 +120,15 @@ class ProductController{
         }
     }
 
+    //given a search string passed by GET
+    //search all the products that contain the search string in the title
+    //it is also possible to decide a minimum and maximum price
+    //and sort the products based on their price
     public function searchProducts(){
         if(!isset($_GET['search'])){
             return new Response(1, "You must specify a search word");
         }
+        //search products in the database
         try{
             $products = $this->productModel->searchProducts(
                 $_GET['search'],

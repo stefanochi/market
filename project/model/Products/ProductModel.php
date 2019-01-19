@@ -11,7 +11,8 @@ class ProductModel{
         $this->db = $database;
     }
 
-    //given a string, returns all the products that contains that string in the name
+    //given a string, returns all the products that contains that string in the title
+    //and satisfy the proce constraint
     public function searchProducts($search, $maxPrice, $minPrice, $descending=false){
 
         //default values if not specified
@@ -29,14 +30,14 @@ class ProductModel{
             "SELECT Products.ID, title, description, price, ownerID, Users.username AS ownerName, Products.image AS image, sold
              FROM Products JOIN Users ON ownerID = Users.ID
              WHERE title LIKE :search AND sold=FALSE AND price >= :minPrice AND price <= :maxPrice
-             ORDER BY price " . ($descending ? "DESC" : "ASC")
+             ORDER BY price " . ($descending ? "DESC" : "ASC") //sort products based on their price
         );
         $stmt->bindValue(':minPrice', (int) $minPrice, PDO::PARAM_INT);
         $stmt->bindValue(':maxPrice', (int) $maxPrice, PDO::PARAM_INT);
         $stmt-> bindValue(':search', "%" . $search . "%");
         $res = $stmt->execute();
         if(!$res){
-            throw new Exception("searchProducts(): something went wrong:" . $this->db->errorInfo()[0]);
+            throw new Exception("Could't search products" . $this->db->errorInfo()[0]);
         }
         $products = $stmt->fetchAll();
 
@@ -58,6 +59,8 @@ class ProductModel{
         return $result;
     }
 
+    //if the data passed is valid,
+    //update the information of the product with id = $id
     public function updateProduct($id, $title, $price, $description, $image, $sold){
         //check if the information is valid
         if($title == ""){
@@ -96,25 +99,24 @@ class ProductModel{
         }
     }
     
+    //given the information about the product
+    //insert a new products in the database
     public function addProduct($title, $price, $ownerID, $description="", $image=""){
-
-        //we assume that the ownerID has already been checked
-
         //check if the information is valid
         if($title == ""){
-            throw new Exception("addProduct(): title can't be ampty");
+            throw new Exception("title can't be ampty");
         }
         if(strlen($title) > 128){
-            throw new Exception("addProduct(): title too long");
+            throw new Exception("title too long");
         }
         if($price < 0){
-            throw new Exception("addProduct(): price can't be less than zero");
+            throw new Exception("price can't be less than zero");
         }
         if(strlen($image) > 1024){
-            throw new Exception("addProduct(): image url too long");
+            throw new Exception("image url too long");
         }
         if(strlen($description) > 1024){
-            throw new Exception("addProduct(): image url too long");
+            throw new Exception("description too long");
         }
 
         //query execution
@@ -125,7 +127,7 @@ class ProductModel{
         $res = $stmt->execute([$title, $price, $ownerID, $description, $image]);
         //throws an exception if insertion fails
         if(!$res){
-            throw new Exception("addProduct(): error inserting product " . $this->db->errorInfo()[0]);
+            throw new Exception("error inserting product " . $this->db->errorInfo()[0]);
         }
     }
 
@@ -142,6 +144,7 @@ class ProductModel{
         }
     }
 
+    //given a product id, returns the information about that product is it exists
     public function getProductByID($productID){
         $stmt = $this->db->prepare(
             'SELECT Products.ID, title, description, price, ownerID, Users.username AS ownerName, Products.image AS image, sold
@@ -158,6 +161,7 @@ class ProductModel{
             throw new Exception("getProductByID(): id not found");
         }
 
+        //return a new instance of Product
         return new Product(
             $product['ID'],
             $product['title'],
@@ -170,6 +174,8 @@ class ProductModel{
         );
     }
 
+    //given an user id
+    //returns an array containing the products by that user
     public function getAllProductsByUserID($ownerID){
         $stmt = $this->db->prepare(
             'SELECT Products.ID, title, description, price, ownerID, Users.username AS ownerName, Products.image AS image, sold
@@ -177,7 +183,7 @@ class ProductModel{
             WHERE ownerID = ?');
         $res = $stmt->execute([$ownerID]);
         if(!$res){
-            throw new Exception("getAllProductsByUserID(): something went wrong");
+            throw new Exception("Couldn't load the products");
         }
         $products = $stmt->fetchAll();
         $result = array();

@@ -7,10 +7,12 @@ $(window).on('hashchange', function(){
 
 return {
     routes : [],
+    //a route is composed by a path (regEX) and a callback function
     add: function(path, handler){
         this.routes.push({pathRe: path, handler: handler});
         return this;
     },
+    //chose the route that match the current path
     hashChanged: function(){
         var hash = window.location.hash;
         var matched = false;
@@ -26,9 +28,11 @@ return {
             this.navigate('#profile/');
         }
     },
+    //got to soecified path
     navigate: function(path){
         window.location.hash = path;
     },
+    //add the routes
     init: function(){
         Router.add(/login/, function(){
            Login.initLogin();

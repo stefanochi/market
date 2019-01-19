@@ -9,7 +9,9 @@ class CartController{
     public function __construct(){
         $this->cartModel = new CartModel();
     }
-
+    
+    //if the user is logged in add the product with the specified user to the cart
+    //POST parameters: productID, userID
     public function addItemToCart(){
         session_start();
         //check if the user is logged in
@@ -35,6 +37,7 @@ class CartController{
         }
     }
 
+    //if the user has the permission, remove a product from the cart
     public function removeItemFromCart(){
         session_start();
         //check if the user is logged in
@@ -46,7 +49,7 @@ class CartController{
             return new Response(1, "You don't have the permissions");
         }
 
-        //add the products
+        //remove the products
         try{
             $products = $this->cartModel->removeItemFromCart(
                 $_POST['productID'],
@@ -60,6 +63,8 @@ class CartController{
         }
     }
 
+    //if the user is authenticated and he is trying to access his own cart
+    //return the information about all the products in the cart 
     public function getCart(){
         session_start();
         //check if the user is logged in
@@ -81,7 +86,9 @@ class CartController{
             return new Response(1, $e->getMessage());
         }
     }
-
+        
+    //set all the products in the cart of the user to sold
+    //and remove all the products from the cart
     public function buyProductsInCart(){
         session_start();
         //check if the user is logged in
