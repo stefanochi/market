@@ -1,3 +1,5 @@
+//code for showing and managing user reviews
+
 var Review = (function(){
 
     var reviews;
@@ -13,6 +15,7 @@ var Review = (function(){
         loadReviews(reviewedID);
     }
 
+    //add the button to leave a review and set the needed listeners
     function enableAddReview(){
         //show the button to add the review
         $('#addReview_button').removeClass('hidden');
@@ -38,6 +41,7 @@ var Review = (function(){
         });
     }
 
+    //show the form to write a review
     function showAddReviewForm(){
         //show the form
         $('#addReview_modal').removeClass('hidden');
@@ -47,10 +51,12 @@ var Review = (function(){
         $('#addReview_rating').val("");
     }
 
+    //hide the form to write a review
     function removeAddReviewForm(){
         $('#addReview_modal').addClass('hidden');
     }
 
+    //send the request to the server to add the review
     function sendReview(text, rating){
         if(loggedUser.info){
             var payload = {
@@ -77,6 +83,7 @@ var Review = (function(){
         
     }
 
+    //send the request to the server to remove the review
     function removeReview(reviewedID, writerID){
         var payload = {
             reviewedID: reviewedID,
@@ -97,11 +104,11 @@ var Review = (function(){
         });
     }
 
+    //request to the server all the reviews of the specified user
     function loadReviews(reviewedID){
         $.get('ajax/reviews', {reviewedID: reviewedID}, function(res){
             if(res.state == 0){
                 reviews = res.data;
-                //TOTO organize better
                 showReviews();
             }else{
                 //show an error to the user
@@ -110,6 +117,7 @@ var Review = (function(){
         });
     }
 
+    //render the reviews on the page
     function showReviews(){
         //remnove already present reviews
         $('#reviewList_div').html("");

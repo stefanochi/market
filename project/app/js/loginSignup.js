@@ -1,5 +1,8 @@
+//code for handling login and singup
+
 var Login = (function(){
     
+    //if the user is already logged in, show the profile
     function initLogin(){
         $('.main').html("");
         if(loggedUser.info){
@@ -11,8 +14,8 @@ var Login = (function(){
         }
     }
 
+    //show the login page
     function showLogin(){
-
         //compile the template
         var source = $('#login_template').html();
         var template = Handlebars.compile(source);
@@ -22,10 +25,10 @@ var Login = (function(){
 
         //hide the advanced search div
         $('#advancedSearch_div').addClass('hidden');
-    
+       
         setLoginListeners();
     }
-    
+    //set the listeners for the login page
     function setLoginListeners(){
         //add the listener for the form
         $('#submit_login').click(function(e){
@@ -40,6 +43,7 @@ var Login = (function(){
         });
     }
     
+    //send request to the server for the login
     function loginPost(){
     
         var loginUsername = $('#username_login').val();
@@ -52,7 +56,6 @@ var Login = (function(){
     
             if(res.state == 0){
                 //if the login is successful go to user page
-                console.log("login successful");
                 loggedUser.info = res.data;
                 Cart.init();
                 Router.navigate('#profile/' + res.data.ID);
@@ -65,12 +68,8 @@ var Login = (function(){
     }
     
     //handles signup
-    //
-    //
-    //
-    //
-    //
     
+    //if the user is logged in, show the profile
     function initSignup(){
         $('.main').html("");
         if(loggedUser.info){
@@ -79,6 +78,7 @@ var Login = (function(){
             showSignup();
         }
     }
+    //shoe the signup page
     function showSignup(){
         //compile the template
         var source = $('#signup_template').html();
@@ -93,7 +93,7 @@ var Login = (function(){
         setSignupListeners();
     }
     
-    
+    //set the listeners for the signup page
     function setSignupListeners(){
         //add the listener
         $('#submit_signup').click(function(e){
@@ -103,6 +103,7 @@ var Login = (function(){
         });
     }
     
+    //send request to the server to add a new user with the passed information
     function signupPost(){
     
         var signupUsername = $('#username_signup').val();
@@ -116,7 +117,6 @@ var Login = (function(){
     
             if(res.state == 0){
                 //if the login is successful go to user page
-                console.log("signup successful");
                 loggedUser.info = res.data;
                 Cart.init();
                 Router.navigate('#profile/' + res.data.ID);

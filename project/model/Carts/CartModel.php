@@ -36,7 +36,7 @@ class CartModel{
 
         //if the insertion fails, throw an exception
         if(!$res){
-            throw new Exception($this->db->errorInfo()[0]);
+            throw new Exception("Alredy in cart");
         }
 
         //return all the items in the cart of the user

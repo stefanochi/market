@@ -1,3 +1,5 @@
+//Handles the functionality for the cart
+
 var Cart = (function(){
     var cartProducts;
 
@@ -8,11 +10,14 @@ var Cart = (function(){
         }
     }
 
+
+    //set the listener
     function setListeners(){
-         //add drag and drop functionality
+        //remove previous listeners
         $('#cart_div *').off();
         $('#confirmCheckout_modal *').off();
 
+        //add drag and drop functionality
         $('#cart_div').on('dragover', function(e){
             e.preventDefault();
         });
@@ -25,10 +30,12 @@ var Cart = (function(){
             addProductToCart(data);
         });
 
+        //listeners for the buttons
         $('#cart_buy').click(function(){
             showConfirmationWindow();
         });
 
+        //listeners for the checkout confirmation window
         $('#confirmCheckout_modal .confirm').click(function(){
             buyCartProducts();
             hideConfirmationWindow();
@@ -41,10 +48,11 @@ var Cart = (function(){
         });
     }
 
+    //show tho windows asking for checkout confirmation
     function showConfirmationWindow(){
         $('#confirmCheckout_modal').removeClass('hidden');
     }
-
+    //hide the confirrmation window
     function hideConfirmationWindow(){
         $('#confirmCheckout_modal').addClass('hidden');
     }
@@ -67,16 +75,14 @@ var Cart = (function(){
                 }else{
                     //show an error to the user
                     showError(res.message);
-
-                    console.log("Error adding product to cart: " + res.message);
                 }
             });
         }else{
-            //the user is not logged in
-            console.log("User not logged in");
+            showError("Not logged in");
         }
     }
 
+    //send request to the server to remove the specified product form the cart
     function removeProductsFromCart(productID){
         if(loggedUser.info){
             var payload = {
@@ -93,15 +99,15 @@ var Cart = (function(){
                 }else{
                     //show an error to the user
                     showError(res.message);
-                    console.log("Error removing product to cart: " + res.message);
                 }
             });
         }else{
             //show an error to the user
             showError("You are nor logged in");
         }
-    }
+    } 
 
+    //send request to the server for all the products contained in the user's cart
     function getCartProducts(){
         $.get('ajax/cart/', {userID: loggedUser.info.ID}, function(res){
             if(res.state == 0){
@@ -110,11 +116,11 @@ var Cart = (function(){
             }else{
                 //show an error to the user
                 showError("Could not load Cart");
-                console.log(res.message);
             }
         });
     }
 
+    //render the product in the page
     function showCartProducts(){
         //empty the cart div
         $('#cartList_div').html("");
@@ -145,13 +151,18 @@ var Cart = (function(){
         
     }
 
+    //reset the list of the products in the cart (only client)
+    //the information on the server in unchanged
     function deleteCartProducts(){
         cartProducts = null;
         showCartProducts();
     }
 
+    //send request to the server to buy the products in the cart
+    //set the products in the cart as sold (if not already) and removes the products from the cart
+    //both on the client and on the server
     function buyCartProducts(){
-        if(loggedUser.info)
+        if(loggedUser.info){
             $.post('ajax/cart/buy', {userID: loggedUser.info.ID}, function(res){
                 if(res.state == 0){
                     showMessage("Products bought successfully");
@@ -161,12 +172,16 @@ var Cart = (function(){
                    showError("Error buying products");
                 }
             });
+        }
     }
 
+    //hide the cart div
+    //for example when showing the login page we don't want to shoe the cart
     function hideCart(){
         $('#cart_div').addClass('hidden');
     }
 
+    //function available to be called from outside
     return{
         init: init,
         deleteCartProducts: deleteCartProducts,

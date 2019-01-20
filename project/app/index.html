@@ -1,4 +1,4 @@
-<!DOCKTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
 
@@ -17,6 +17,8 @@
         <script src="app/js/main.js"></script>
 
         <link rel="stylesheet" href="app/css/style.css">
+
+        <title>Exchange</title>
     </head>
     <body>
         <div class="navbar">
@@ -47,7 +49,6 @@
         </div>
         <!-- this div contains the modal windows -->
         <div>
-
                 <!-- window to add a new product -->
                 <div id="addProduct_modal" class="hidden modal">
                     <div class="addProduct_div modal-content">
@@ -59,7 +60,7 @@
                             <input type="text" id="product_title" placeholder="Title">
                             <input type="number" id="product_price" placeholder="Price">
                             <input type="url" id="product_image" placeholder="Image Url">
-                            <textarea type="text" id="product_description" placeholder="Description"></textarea>
+                            <textarea id="product_description" placeholder="Description"></textarea>
                             <div class="modal-buttons">
                                 <button class="confirm primary_button float_right">Add Product</button>
                                 <button class="cancel secondary_button float_right">Cancel</button>
@@ -96,7 +97,7 @@
                             <input id="editProfile_username" type="text" placeholder="Username">
                             <input id="editProfile_email" type="email" placeholder="Email">
                             <input id="editProfile_image" type="url" placeholder="Profile Picture url">
-                            <textarea id="editProfile_info" type="text" placeholder="Description"></textarea>
+                            <textarea id="editProfile_info" placeholder="Description"></textarea>
                             <div class="modal-buttons">
                                 <button id="editProfile_save" class=" confirm primary_button float_right">Save</button>
                                 <button class="cancel secondary_button float_right">Cancel</button>
@@ -117,9 +118,15 @@
                             <input type="text" id="updateProduct_title" placeholder="Title">
                             <input type="number" id="updateProduct_price" placeholder="Price">
                             <input type="url" id="updateProduct_image" placeholder="Image Url">
-                            <textarea type="text" id="updateProduct_description" placeholder="Description"></textarea>
-                            <input type="radio" id="updateProduct_sold" name="sold" value="sold">Sold
-                            <input type="radio" id="updateProduct_sold" name="sold" value="available">Available
+                            <textarea id="updateProduct_description" placeholder="Description"></textarea>
+                            <label for="sold">
+                                <input type="radio" id="sold" class="updateProduct_sold" name="sold" value="sold"/>
+                                Sold
+                            </label>
+                            <label for="available">
+                                <input type="radio" id="available" class="updateProduct_sold" name="sold" value="available/">
+                                Available
+                            </label>
                             <div class="modal-buttons">
                                 <button class="confirm primary_button float_right">Update Product</button>
                                 <button class="cancel secondary_button float_right">Cancel</button>
@@ -155,7 +162,7 @@
                         <!-- form to add review -->
                         <form id="addReview_form" class="modal-body">
                             <input id="addReview_rating" type="number" placeholder="rating">
-                            <textarea id="addReview_text" type='text' placeholder="text"></textarea>
+                            <textarea id="addReview_text" placeholder="text"></textarea>
                             <div class="modal-buttons">
                                 <input id="addReview_submit" class="primary_button float_right" type="submit" value="Send">
                             </div>
@@ -164,15 +171,16 @@
                 </div>
             </div>
         <div class="content">
-            <!--this div will contain the content of the page-->
+            <!--this div contains the content of the page-->
             <div class="column cl-1"><div class="left">
+                <!-- first column, contains only the advanced search div -->
                     <div id="advancedSearch_div" class="section_main hidden">
                         <div class="header_div">
                             <h1>Refine Search</h1>
                         </div>
                         <form id="advancedSearch_form" class="advancedSearch_div">
-                            <input id="advancedSearch_minPrice" type="number" placeholder="minimum price" value="null">
-                            <input id="advancedSearch_maxPrice" type="number" placeholder="maximum price" value="null">
+                            <input id="advancedSearch_minPrice" type="number" placeholder="minimum price">
+                            <input id="advancedSearch_maxPrice" type="number" placeholder="maximum price">
                             <select id="advancedSearch_order">
                                 <option value="descending">Descending</option>
                                 <option value="ascending"  selected="selected">Ascending</option>
@@ -182,7 +190,9 @@
                     </div>
                 </div>
             </div>
+            <!-- central column, initially empty -->
             <div class="column cl-2"><div class="main"></div></div>
+            <!-- right column, contains the cart -->
             <div class="column cl-3"><div class="right">
                 <div id="cart_div" class="section_main hidden">
                     
@@ -198,6 +208,9 @@
         </div>
         </div>
         <div class="templates">
+            <!-- contains the templates to be compiled with handlebars -->
+            
+            <!-- template for the profile page -->
             <script id="profile_template" type="text/x-handlebars-template">
                 <div id="info_div" class="section_main">
                     <div class="header_div">
@@ -207,10 +220,11 @@
                         <!-- when clicked it shows a windows to edit the profile -->
                         <span id="editProfile_button" class="hidden">Edit</span>
                         <div class="column-left">
-                            <img src={{image}}>
+                            {{#if image}}
+                            <img src="{{image}}" alt="profile image"> 
+                            {{/if}}
                         </div>
                         <h2>Email: {{email}}</h2>
-                        <h2>{{rating}}</h2>
                         <p>{{info}}</p>
                     </div>
                 </div>
@@ -222,6 +236,7 @@
                     </div>   
                     <div id="productList_div" class="section_content">
                         <!-- list of selling products -->
+                        <!-- the products will be added dynamically -->
                     </div>
                 </div>
                 <div id="reviews_div" class="section_main">
@@ -232,6 +247,7 @@
                     </div>
                     <div id="reviewList_div" class="section_content">
                         <!-- listo of reviews -->
+                        <!-- the reviews will be added dynamically -->
                     </div>
                 </div> 
             </script>
@@ -247,6 +263,7 @@
                 </div>
             </script>
             
+            <!-- template fotr the login page -->
             <script id="login_template" type="text/x-handlebars-template">
                 <div class="login_div  section_main">
                     <div class="header_div">
@@ -260,9 +277,9 @@
                         <button id="signup_link" class="primary_button">Sign Up</button>
                     </div>
                 </div>
-                
             </script>
             
+            <!-- signup page -->
             <script id="signup_template" type="text/x-handlebars-template">
                 <div class="login_div  section_main">
                     <div class="header_div">
@@ -277,6 +294,7 @@
                 </div>
             </script>
             
+            <!-- template for a single product -->
             <script id="product_template" type="text/x-handlebars-template">
                 <div class="product_div" id={{ID}}>
                     <div class="product_header">
@@ -293,7 +311,10 @@
                             <h1 class="product_price">{{price}}$</h1>
                         </div>
                     </div>
-                    <img src={{image}}>
+                    <!-- display the image only if defined -->
+                    {{#if image}}
+                        <img src="{{image}}" alt="product image"> 
+                    {{/if}}
                     <p class="product_description">{{description}}</p>
                     <div class="button_div float_right">
                             <button class='product_delete secondary_button hidden'>Delete</button>
@@ -303,6 +324,7 @@
                 </div>
             </script>
 
+            <!-- template for a single product in the cart -->
             <script id="cartProduct_template" type="text/x-handlebars-template">
                 <div id=cartProduct_{{ID}} class="cartProduct_div">
                     <div>
@@ -314,10 +336,14 @@
                 </div>
             </script>
 
+            <!-- template for a single review -->
             <script id="review_template" type="text/x-handlebars-template">
                 <div id="review_{{writerID}}" class="review_div">
                     <div class="column-left">
-                        <img src="{{writer_image}}">
+                        <!-- display the image only if defined -->
+                        {{#if writer_image}}
+                            <img src="{{writer_image}}" alt="writer image"> 
+                        {{/if}}
                     </div>
                     <div class="review_content">
                         <a href="#profile/{{writerID}}"><h2>{{writerUsername}}:</h2></a>

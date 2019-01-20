@@ -27,7 +27,7 @@ class UserModel{
             }
         }
         //update the email
-        if($email != NULL){
+        if($email != NULL && filter_var($email, FILTER_VALIDATE_EMAIL)){
             $stmt = $this->db->prepare(
                 'UPDATE Users
                  SET email = ?
@@ -39,7 +39,7 @@ class UserModel{
             }
         }
         //update the image
-        if($image != NULL){
+        if($image != NULL && filter_var($image, FILTER_VALIDATE_URL)){
             $stmt = $this->db->prepare(
                 'UPDATE Users
                  SET image = ?
@@ -69,14 +69,14 @@ class UserModel{
     //after checking the validity of the data, adds the new user to the database
     //with the date of the registration
     public function addUser($username, $password, $email){
-        if($email == "" && !isset($email)){
-            throw new Exception("email can't be empty");
+        if(($email == "" && !isset($email)) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+            throw new Exception("Invalid Email");
         }
         if($username == "" && !isset($username)){
-            throw new Exception("usenrame can't be empty");
+            throw new Exception("Invalid username");
         }
         if($password == "" && !isset($password)){
-            throw new Exception("password can't be empty");
+            throw new Exception("Invalid password");
         }
         $stmt = $this->db->prepare(
             'INSERT INTO Users (username, password, email, reg_date)

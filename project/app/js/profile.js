@@ -1,3 +1,5 @@
+//code for showing and editing the profile
+
 var Profile = (function(){
 
     var profileID;
@@ -54,7 +56,7 @@ var Profile = (function(){
 
     //show the profile page
     function showProfile(){
-        console.log('showing profile');
+        //compile the html for the profile with handlebars
         var source = $('#profile_template').html();
         var template = Handlebars.compile(source);
         var context = user;
@@ -69,6 +71,7 @@ var Profile = (function(){
         }
     }
 
+    //if the user is viewing his own profile, allow him to edit the information
     function enableEditProfile(){
         //show the button to edit the profile
         $('#editProfile_button').removeClass('hidden');
@@ -115,6 +118,7 @@ var Profile = (function(){
         $('#editProfile_modal').addClass('hidden');
     }
 
+    //send request to the server to update the user information with the new ones
     function updateProfileInfo(username, email, image, info){
         var payload = {
             userID: loggedUser.info.ID,

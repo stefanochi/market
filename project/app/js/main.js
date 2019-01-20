@@ -21,7 +21,9 @@ var loggedUser = {
    },
    logout: function(){
       $.get('ajax/logout', function(res){
-         console.log(res.message);
+         if(res.state == 0){
+            showMessage("Logout successful");
+         }
       });
       loggedUser.info = null;
    }

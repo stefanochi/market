@@ -1,5 +1,7 @@
+//code for the router
 var Router = (function(){
 
+//listeners for hash changes in the url
 $(window).on('hashchange', function(){
     Router.hashChanged();
 });
@@ -40,11 +42,13 @@ return {
         Router.add(/signup/, function(){
            Login.initSignup();
         });   
-        Router.add(/profile\/(.*)/, function(){
-           Profile.init(arguments[0]);
+        Router.add(/profile\/(.*)/, function(){ 
+            //the url has the form: #profile/[profile id], where the profile indicates the id of the profile to show
+            Profile.init(arguments[0]); //the id of the user is passed to this function
         });
         Router.add(/products\/search\/([a-z0-9_]*)$/i, function(){
-            Products.loadProductsBySearch(arguments);
+            //has the form: #products/search/[search string], where search string indicates the search argument
+            Products.loadProductsBySearch(arguments); //the string is passed to the function
         });
      
         Router.hashChanged();
